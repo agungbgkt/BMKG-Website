@@ -1,0 +1,38 @@
+# Environment
+backend/.env
+backend/.env.backup
+backend/.env.production
+
+# Logs
+backend/*.log
+backend/storage/logs
+
+# Dependencies
+backend/vendor
+backend/node_modules
+
+# Build Files
+backend/public/build
+backend/public/hot
+backend/public/storage
+
+# Cache
+backend/.phpunit.cache
+backend/.phpunit.result.cache
+backend/storage/pail
+backend/storage/*.key
+
+# IDE / Editor
+backend/.fleet
+backend/.idea
+backend/.nova
+backend/.vscode
+backend/.zed
+backend/.DS_Store
+backend/Thumbs.db
+backend/.phpactor.json
+
+# Laravel Specific
+backend/auth.json
+backend/Homestead.json
+backend/Homestead.yaml
