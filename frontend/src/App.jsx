@@ -1,12 +1,29 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Navbar from "./component/Navbar/Navbar";
+import Topbar from "./component/Topbar/Topbar";
+
+import Dashboard from "./pages/Dashboard/";
+import Peta from "./pages/Peta";
+import Peringatan from "./pages/Peringatan";
+import Lainnya from "./pages/Lainnya";
 
 function App() {
-
   return (
-    <>
-      <h1>hello</h1>
-    </>
-  )
+    <BrowserRouter>
+
+      <Topbar />
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/peta" element={<Peta />} />
+        <Route path="/peringatan" element={<Peringatan />} />
+        <Route path="/lainnya" element={<Lainnya />} />
+      </Routes>
+
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
