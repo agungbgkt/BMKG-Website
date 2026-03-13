@@ -128,7 +128,7 @@ margin:auto;
 
 .cuaca-section{
 text-align:center;
-margin-bottom:40px;
+margin-bottom:30px;
 }
 
 .title{
@@ -148,7 +148,7 @@ margin-bottom:20px;
 width:60px;
 height:60px;
 border-radius:15px;
-background:#ffffff;
+background:white;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -158,19 +158,77 @@ cursor:pointer;
 transition:0.3s;
 }
 
-.icon-box.active,
 .icon-box:hover{
 border:2px solid #2f80ed;
 }
 
+/* =========================
+   PILIHAN TANGGAL
+========================= */
+
+.tanggal-cuaca{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-bottom:10px;
+}
+
+.tanggal-cuaca button{
+padding:8px 18px;
+border-radius:20px;
+border:1px solid #ccc;
+background:white;
+cursor:pointer;
+font-size:14px;
+transition:0.3s;
+}
+
+.tanggal-cuaca button:hover{
+background:#f2f2f2;
+}
+
+.tanggal-cuaca button.aktif{
+background:#2f80ed;
+color:white;
+border:none;
+}
+
+/* =========================
+   PILIHAN JAM
+========================= */
+
+.jam-cuaca{
+display:flex;
+justify-content:center;
+margin-bottom:10px;
+}
+
+.jam-cuaca select{
+padding:8px 14px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:14px;
+cursor:pointer;
+background:white;
+}
+
+/* =========================
+   LINK LIHAT
+========================= */
+
 .lihat{
 color:#2f80ed;
 cursor:pointer;
-font-weight:500;
+font-weight:600;
 display:block;
 text-align:center;
 margin-top:15px;
 text-decoration:none;
+transition:0.3s;
+}
+
+.lihat:hover{
+text-decoration:underline;
 }
 
 /* =========================
@@ -181,7 +239,8 @@ text-decoration:none;
 display:flex;
 align-items:center;
 gap:10px;
-margin-top:30px;
+margin-top:20px;
+margin-bottom:40px;
 }
 
 .slider-btn{
@@ -230,7 +289,8 @@ flex-shrink:0;
 }
 
 .weather-card:hover{
-transform:translateY(-5px);
+transform:translateY(-6px);
+box-shadow:0 12px 30px rgba(0,0,0,0.12);
 }
 
 .card-header h3{
@@ -258,13 +318,13 @@ margin:5px 0;
 ========================= */
 
 .bencana-section{
-margin-top:100px;
+margin-top:120px;
 padding:40px 60px;
 }
 
 .bencana-title{
 text-align:center;
-margin-bottom:50px;
+margin-bottom:40px;
 font-size:28px;
 font-weight:700;
 }
@@ -275,12 +335,32 @@ gap:40px;
 background:white;
 padding:30px;
 border-radius:16px;
-margin-bottom:40px;
 box-shadow:0 8px 20px rgba(0,0,0,0.08);
+align-items:flex-start;
+flex-wrap:wrap;
 }
+
+.bencana-card + .bencana-card{
+margin-top:30px;
+}
+
+
+
+/* MAP */
+
+.bencana-left{
+flex:0 0 260px;
+}
+
+/* TEXT */
 
 .bencana-right{
 flex:1;
+}
+
+.bencana-right h3{
+font-size:22px;
+margin-bottom:5px;
 }
 
 .tanggal{
@@ -294,9 +374,11 @@ margin-bottom:10px;
 color:#444;
 }
 
+/* DETAIL GEMPA */
+
 .gempa-detail{
 display:flex;
-gap:20px;
+gap:15px;
 margin-top:10px;
 }
 
@@ -305,7 +387,7 @@ background:#f4f4f4;
 padding:12px 18px;
 border-radius:12px;
 text-align:center;
-min-width:120px;
+min-width:110px;
 }
 
 .detail-box p{
@@ -318,26 +400,7 @@ margin-top:4px;
 font-size:18px;
 }
 
-/* ================= BANJIR STATUS ================= */
-
-.banjir-status{
-display:flex;
-gap:15px;
-margin-top:15px;
-}
-
-.status-box{
-padding:10px 18px;
-border-radius:8px;
-font-weight:600;
-font-size:14px;
-color:white;
-}
-
-.rendah{background:#2ecc71;}
-.siaga{background:#f1c40f;color:black;}
-.waspada{background:#e67e22;}
-.bahaya{background:#e74c3c;}
+/* SARAN */
 
 .saran{
 margin-top:15px;
@@ -345,7 +408,59 @@ font-size:14px;
 color:#444;
 }
 
-/* ================= KUALITAS UDARA ================= */
+/* BADGE */
+
+.badge-group{
+display:flex;
+gap:10px;
+margin:10px 0;
+}
+
+.badge{
+padding:5px 12px;
+border-radius:8px;
+font-size:13px;
+font-weight:600;
+}
+
+.orange{
+background:#ffe0b2;
+color:#e65100;
+}
+
+.red{
+background:#ffcdd2;
+color:#c62828;
+}
+
+.green{
+background:#c8f7c5;
+color:#2e7d32;
+}
+
+.yellow{
+background:#fff3b0;
+color:#8d6e00;
+}
+
+.gray{
+background:#e0e0e0;
+color:#555;
+}
+
+/* GARIS PEMISAH */
+
+.bencana-divider{
+margin:40px 0;
+border:none;
+border-top:1px solid #ddd;
+}
+
+
+
+/* =========================
+   KUALITAS UDARA
+========================= */
 
 .udara-section{
 margin-top:120px;
@@ -390,8 +505,6 @@ font-size:38px;
 margin-bottom:8px;
 }
 
-/* warna udara */
-
 .baik{
 background:linear-gradient(#b9f6c8,#e8f7ec);
 color:#2ecc71;
@@ -417,7 +530,86 @@ background:linear-gradient(#e0e0e0,#f5f5f5);
 color:#7f8c8d;
 }
 
-/* ================= AKSES INFORMASI ================= */
+/* SEARCH */
+
+.search-box{
+display:flex;
+justify-content:center;
+margin-top:20px;
+}
+
+.search-box input{
+padding:10px 15px;
+width:250px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+
+/* STATISTIK */
+
+.statistik-udara{
+display:flex;
+justify-content:center;
+gap:25px;
+margin-top:30px;
+}
+
+.stat-box{
+padding:20px;
+border-radius:12px;
+color:white;
+width:140px;
+text-align:center;
+font-weight:bold;
+}
+
+.stat-box h3{
+font-size:28px;
+}
+
+.stat-box.baik{
+background:#2ecc71;
+}
+
+.stat-box.sedang{
+background:#3498db;
+}
+
+.stat-box.berbahaya{
+background:#e74c3c;
+}
+
+
+/* GRID */
+
+.udara-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+
+/* AQI BAR */
+
+.aqi-bar{
+height:8px;
+background:#ddd;
+border-radius:10px;
+margin-top:10px;
+overflow:hidden;
+}
+
+.aqi-bar div{
+height:100%;
+background:#333;
+}
+
+
+/* =========================
+   AKSES INFORMASI
+========================= */
 
 .akses-section{
 margin-top:120px;
@@ -459,4 +651,135 @@ object-fit:cover;
 .akses-card h3{
 padding:20px;
 font-size:18px;
+}
+
+/* ================= HALAMAN CUACA ================= */
+
+.cuaca-page{
+padding:60px 100px;
+max-width:1400px;
+margin:auto;
+}
+
+/* JUDUL */
+
+.cuaca-title{
+text-align:center;
+font-size:38px;
+font-weight:700;
+margin-bottom:40px;
+color:#222;
+}
+
+/* PANEL FILTER */
+
+.cuaca-filter{
+background:white;
+padding:25px;
+border-radius:14px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+display:flex;
+justify-content:center;
+gap:25px;
+margin-bottom:25px;
+}
+
+.cuaca-filter select{
+padding:10px 14px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
+min-width:200px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.cuaca-filter select:hover{
+border-color:#2f80ed;
+}
+
+/* TANGGAL */
+
+.tanggal-cuaca{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-bottom:15px;
+}
+
+.tanggal-cuaca button{
+padding:9px 20px;
+border-radius:25px;
+border:1px solid #ccc;
+background:white;
+cursor:pointer;
+font-size:14px;
+font-weight:500;
+transition:0.2s;
+}
+
+.tanggal-cuaca button:hover{
+background:#f3f6ff;
+border-color:#2f80ed;
+}
+
+.tanggal-cuaca button.aktif{
+background:#2f80ed;
+color:white;
+border:none;
+}
+
+/* JAM */
+
+.jam-cuaca{
+display:flex;
+justify-content:center;
+margin-bottom:30px;
+}
+
+.jam-cuaca select{
+padding:10px 16px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:14px;
+cursor:pointer;
+}
+
+/* GRID CUACA */
+
+.cuaca-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+gap:25px;
+margin-top:20px;
+}
+
+/* CARD CUACA */
+
+.weather-card{
+background:linear-gradient(180deg,#ffffff 0%,#eaf4ff 100%);
+border-radius:20px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.25s;
+}
+
+.weather-card:hover{
+transform:translateY(-6px);
+box-shadow:0 12px 30px rgba(0,0,0,0.12);
+}
+
+.weather-icon{
+font-size:45px;
+margin-bottom:10px;
+}
+
+.temperature{
+font-size:28px;
+font-weight:700;
+}
+
+.status{
+font-size:15px;
+color:#555;
 }
