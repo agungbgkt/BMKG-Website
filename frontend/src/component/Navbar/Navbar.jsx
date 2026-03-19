@@ -20,7 +20,7 @@ function Navbar() {
          </NavLink>
 
          <NavLink to="/peta">
-           Peta
+           Wilayah
           </NavLink>
 
           <NavLink to="/peringatan">

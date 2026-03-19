@@ -80,9 +80,13 @@ const dataUdara = [
 
 /* ================= FILTER CUACA ================= */
 
-const filteredData = dataCuaca.filter(
-(item)=> item.tanggal === tanggal && item.jam === jam
-);
+const filteredData = dataCuaca.filter((item) => {
+  return (
+    item.tanggal === tanggal &&
+    item.jam === jam &&
+    (filter === "All" || item.kondisi === filter)
+  );
+});
 
 return(
 
@@ -95,6 +99,13 @@ return(
 <h1 className="title">CUACA</h1>
 
 <div className="icon-group">
+
+ <div
+className={`icon-box ${filter==="All"?"active":""}`}
+onClick={()=>setFilter("All")}
+>
+🌍
+</div>   
 
 <div
 className={`icon-box ${filter==="Cerah"?"active":""}`}
@@ -280,7 +291,7 @@ Pusat gempa berada di darat 23 km tenggara Sami
 <b>Saran BMKG:</b> Hati-hati terhadap gempa bumi susulan yang mungkin terjadi.
 </p>
 
-<Link to="/peringatan" className="lihat">
+<Link to="/detail/1" className="lihat">
 Lihat Selengkapnya →
 </Link>
 
@@ -364,7 +375,7 @@ Potensi banjir berada di sungai Ciliwung Jakarta
 <b>Saran BMKG:</b> Waspada terhadap potensi banjir di wilayah sekitar.
 </p>
 
-<Link to="/peringatan" className="lihat">
+<Link to="/detail/2" className="lihat">
 Lihat Selengkapnya →
 </Link>
 

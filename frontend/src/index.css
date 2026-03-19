@@ -783,3 +783,100 @@ font-weight:700;
 font-size:15px;
 color:#555;
 }
+.peringatan-page {
+  padding: 60px 100px;
+}
+
+.peringatan-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.peringatan-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.peringatan-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.detail-btn {
+  display: inline-block;
+  margin-top: 10px;
+  color: #2f80ed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.detail-page {
+  padding: 60px 100px;
+}
+
+.detail-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.detail-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.peringatan-filter {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.peringatan-filter button {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.peringatan-filter button.aktif {
+  background: #2f80ed;
+  color: white;
+  border: none;
+}
+
+.peringatan-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.peringatan-card:hover {
+  transform: translateY(-5px);
+}
+
+.peringatan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.waktu {
+  font-size: 13px;
+  color: #777;
+}
+
+.info-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  font-weight: 600;
+}
