@@ -436,34 +436,52 @@ Lihat Selengkapnya →
 
 {/* ================= AKSES INFORMASI ================= */}
 
-<div className="akses-section">
+<div className="berita-section">
 
-<h2 className="akses-title">
-Akses Informasi Lainnya
-</h2>
+  <p className="berita-label">BERITA</p>
+  <h2 className="berita-title">Berita Terkini</h2>
+  <p className="berita-sub">
+    Berita Utama, Kegiatan, dan Daerah Terbaru dari BMKG
+  </p>
 
-<div className="akses-container">
+  <div className="berita-layout">
 
-<div className="akses-card">
-<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"/>
-<h3>Informasi Maritim</h3>
+    {/* KIRI */}
+    <div className="berita-kiri">
+      <div className="berita-card horizontal">
+        
+        <div className="berita-text">
+          <p className="tanggal">25 FEBRUARI 2026</p>
+          <h3>Dukung Kelancaran Mudik Lebaran 2026...</h3>
+          <a href="#">Baca Selengkapnya →</a>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=60"/>
+      
+      </div>
+    </div>
+
+    {/* KANAN */}
+    <div className="berita-kanan">
+      <div className="berita-card vertical">
+
+        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=60" />
+
+        <div className="berita-text">
+          <p className="tanggal">25 FEBRUARI 2026</p>
+          <h3>Optimalkan Pengelolaan Data dan Pemodelan Cuaca...</h3>
+          <a href="#">Baca Selengkapnya →</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
-<div className="akses-card">
-<img src="https://images.unsplash.com/photo-1493238792000-8113da705763"/>
-<h3>Informasi Bandara</h3>
 </div>
 
-<div className="akses-card">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"/>
-<h3>Informasi Sektoral</h3>
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 );
 
