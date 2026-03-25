@@ -19,7 +19,7 @@ function Navbar() {
           Dashboard
          </NavLink>
 
-         <NavLink to="/peta">
+         <NavLink to="/wilayah">
            Wilayah
           </NavLink>
 

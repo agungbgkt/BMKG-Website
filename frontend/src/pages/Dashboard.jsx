@@ -462,24 +462,33 @@ Lihat Selengkapnya →
     </div>
 
     {/* KANAN */}
-    <div className="berita-kanan">
-      <div className="berita-card vertical">
+<div className="berita-kanan">
 
-        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=60" />
+  {/* ATAS */}
+  <div className="berita-card vertical">
+    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=60" />
 
-        <div className="berita-text">
-          <p className="tanggal">25 FEBRUARI 2026</p>
-          <h3>Optimalkan Pengelolaan Data dan Pemodelan Cuaca...</h3>
-          <a href="#">Baca Selengkapnya →</a>
-        </div>
-
-      </div>
+    <div className="berita-text">
+      <p className="tanggal">25 FEBRUARI 2026</p>
+      <h3>Optimalkan Pengelolaan Data dan Pemodelan Cuaca...</h3>
+      <a href="#">Baca Selengkapnya →</a>
     </div>
+  </div>
 
+  {/* BAWAH */}
+  <div className="berita-card vertical">
+    <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=800&q=60" />
+
+    <div className="berita-text">
+      <p className="tanggal">26 FEBRUARI 2026</p>
+      <h3>Peningkatan Sistem Informasi Cuaca Nasional...</h3>
+      <a href="#">Baca Selengkapnya →</a>
+    </div>
   </div>
 
 </div>
-
+</div>
+</div>
 </div>
 
 

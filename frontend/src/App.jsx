@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./component/Navbar/Navbar";
 import Topbar from "./component/Topbar/Topbar";
+import Footer from "./component/Footer/Footer";
 
 import Dashboard from "./pages/Dashboard";
-import Peta from "./pages/Peta";
+import Wilayah from "./pages/Wilayah";
 import Peringatan from "./pages/Peringatan";
 import Lainnya from "./pages/Lainnya";
 import Cuaca from "./pages/Cuaca";
@@ -20,13 +21,15 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/peta" element={<Peta />} />
+        <Route path="/wilayah" element={<Wilayah />} />
         <Route path="/peringatan" element={<Peringatan />} />
         <Route path="/lainnya" element={<Lainnya />} />
         <Route path="/cuaca" element={<Cuaca />} />
         <Route path="/Udara" element={<KualitasUdara />} />
         <Route path="/detail/:id" element={<DetailPeringatan />} />
       </Routes>
+
+      <Footer/>
 
     </BrowserRouter>
   );
