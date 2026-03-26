@@ -11,6 +11,7 @@ import Lainnya from "./pages/Lainnya";
 import Cuaca from "./pages/Cuaca";
 import KualitasUdara from "./pages/KualitasUdara";
 import DetailPeringatan from "./pages/DetailPeringatan";
+import Berita from "./pages/BeritaDetail";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/cuaca" element={<Cuaca />} />
         <Route path="/Udara" element={<KualitasUdara />} />
         <Route path="/detail/:id" element={<DetailPeringatan />} />
+        <Route path="/berita/:id" element={<Berita />} />
       </Routes>
 
       <Footer/>

@@ -917,17 +917,21 @@ margin-bottom:40px;
 /* LAYOUT UTAMA */
 .berita-layout{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns:1.3fr 1fr;
 gap:30px;
 }
 
 /* CARD UMUM */
 .berita-card{
-background:white;
-border-radius:16px;
-overflow:hidden;
-box-shadow:0 6px 15px rgba(0,0,0,0.08);
-transition:0.3s;
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+  display:block;
 }
 
 .berita-card:hover{
@@ -943,16 +947,18 @@ gap:20px;
 }
 
 .berita-card.horizontal img{
-width:200px;
-height:150px;
+width:100%;
+height:220px;
 object-fit:cover;
-border-radius:12px;
+border-radius:0 16px 16px 0;
 }
 
 /* VERTICAL (KANAN) */
 .berita-card.vertical{
-min-height:300px;
-height:100%;
+display:flex;
+align-items:center;
+padding:20px;
+gap:20px;
 }
 
 .berita-card.vertical img{
@@ -960,7 +966,6 @@ width:100%;
 height:220px;
 object-fit:cover;
 display: block;
-height: 180px;
 }
 
 /* KANAN JADI COLUMN */
@@ -970,12 +975,6 @@ flex-direction:column;
 gap:20px;
 }
 
-/* BIAR PROPORSI BAGUS */
-.berita-layout{
-display:grid;
-grid-template-columns:1.3fr 1fr;
-gap:30px;
-}
 
 /* TEXT */
 .berita-text{
@@ -996,6 +995,123 @@ text-decoration:none;
 .berita-text a:hover{
 text-decoration:underline;
 }
+
+
+.berita-page{
+  padding:60px 100px;
+}
+
+.berita-page-title{
+  text-align:center;
+  font-size:36px;
+  margin-bottom:40px;
+}
+
+.berita-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+
+.berita-card:hover{
+  transform:translateY(-5px);
+}
+
+
+
+.berita-text h3{
+  margin:10px 0;
+}
+
+.berita-text a{
+  color:#2f80ed;
+  font-weight:600;
+  text-decoration:none;
+}
+.detail-berita{
+  padding:60px 120px;
+}
+
+.detail-berita h1{
+  margin-bottom:20px;
+}
+
+.detail-berita img{
+  width:100%;
+  max-width:700px;
+  border-radius:15px;
+  margin:20px 0;
+}
+
+.detail-berita p{
+  font-size:16px;
+  line-height:1.6;
+}
+
+.back-btn{
+  margin-bottom:20px;
+  padding:8px 16px;
+  border:none;
+  background:#2f80ed;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.detail-img{
+  width:100%;
+  max-height:400px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-bottom:20px;
+}
+
+.detail-isi{
+  font-size:16px;
+  line-height:1.7;
+  color:#444;
+}
+
+.related-berita{
+  display:flex;
+  gap:20px;
+  margin-top:20px;
+}
+
+.related-card{
+  width:200px;
+  background:white;
+  padding:10px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.related-card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.related-card h4{
+  font-size:14px;
+  margin:10px 0;
+}
+
+.related-card button{
+  background:#2f80ed;
+  color:white;
+  border:none;
+  padding:5px 10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+
+
+
+
 
 /* =========================
    FOOTER
@@ -1157,3 +1273,54 @@ padding:20px;
 border-radius:12px;
 color:#856404;
 }
+
+/* =========================
+   HALAMAN LAINNYA
+========================= */
+
+.lainnya-page{
+padding:60px 100px;
+}
+
+.lainnya-title{
+text-align:center;
+font-size:36px;
+margin-bottom:40px;
+font-weight:700;
+}
+
+.lainnya-container{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+}
+
+.lainnya-card{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 6px 15px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.lainnya-card:hover{
+transform:translateY(-5px);
+}
+
+.lainnya-card h3{
+margin-bottom:15px;
+}
+
+.lainnya-card a{
+display:block;
+text-decoration:none;
+color:#333;
+margin-bottom:10px;
+transition:0.2s;
+}
+
+.lainnya-card a:hover{
+color:#2f80ed;
+padding-left:5px;
+}
+

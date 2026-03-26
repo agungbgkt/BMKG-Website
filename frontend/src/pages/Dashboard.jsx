@@ -16,6 +16,7 @@ const [jam, setJam] = useState("12.00");
 
 const [statusGempa] = useState("dirasakan");
 const [statusBanjir] = useState("waspada");
+const [kategori, setKategori] = useState("Utama");
 
 
 /* ================= SLIDER CUACA ================= */
@@ -49,6 +50,36 @@ left: 250,
 behavior: "smooth"
 });
 };
+
+/* ================= DATA BERITA (BARU) ================= */
+
+const dataBerita = [
+  {
+    id: "1",
+    judul: "Dukung Kelancaran Mudik Lebaran 2026...",
+    tanggal: "25 FEBRUARI 2026",
+    kategori: "Utama",
+    gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
+  },
+  {
+    id: "2",
+    judul: "Optimalkan Pengelolaan Data dan Pemodelan Cuaca...",
+    tanggal: "25 FEBRUARI 2026",
+    kategori: "Kegiatan",
+    gambar: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"
+  },
+  {
+    id: "3",
+    judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
+    tanggal: "26 FEBRUARI 2026",
+    kategori: "Daerah",
+    gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
+  }
+];
+
+const beritaFilter = dataBerita.filter(
+  (item) => item.kategori === kategori
+);
 
 /* ================= DATA CUACA ================= */
 
@@ -89,6 +120,7 @@ const filteredData = dataCuaca.filter((item) => {
 });
 
 return(
+  
 
 <div className="dashboard">
 
@@ -434,64 +466,83 @@ Lihat Selengkapnya →
 </div>
 
 
-{/* ================= AKSES INFORMASI ================= */}
+{/* ================= AKSES INFORMASI LAINNYA================= */}
 
+<div className="akses-section">
+
+  <h2 className="akses-title">
+    Akses Informasi Lainnya
+  </h2>
+
+  <div className="akses-container">
+
+    <div className="akses-card">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"/>
+      <h3>Cuaca Maritim</h3>
+    </div>
+
+    <div className="akses-card">
+      <img src="https://images.unsplash.com/photo-1493238792000-8113da705763"/>
+      <h3>Cuaca Bandara</h3>
+    </div>
+
+    <div className="akses-card">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"/>
+      <h3>Cuaca Sektoral</h3>
+    </div>
+
+  </div>
+
+</div>
+
+{/* ================= BERITA ================= */}
 <div className="berita-section">
 
-  <p className="berita-label">BERITA</p>
-  <h2 className="berita-title">Berita Terkini</h2>
-  <p className="berita-sub">
-    Berita Utama, Kegiatan, dan Daerah Terbaru dari BMKG
-  </p>
+<p className="berita-label">BERITA</p>
+<h2 className="berita-title">Berita Terkini</h2>
 
-  <div className="berita-layout">
+<div className="tanggal-cuaca">
+<button className={kategori==="Utama"?"aktif":""} onClick={()=>setKategori("Utama")}>Berita Utama</button>
+<button className={kategori==="Kegiatan"?"aktif":""} onClick={()=>setKategori("Kegiatan")}>Berita Kegiatan</button>
+<button className={kategori==="Daerah"?"aktif":""} onClick={()=>setKategori("Daerah")}>Berita Daerah</button>
+</div>
 
-    {/* KIRI */}
-    <div className="berita-kiri">
-      <div className="berita-card horizontal">
-        
-        <div className="berita-text">
-          <p className="tanggal">25 FEBRUARI 2026</p>
-          <h3>Dukung Kelancaran Mudik Lebaran 2026...</h3>
-          <a href="#">Baca Selengkapnya →</a>
-        </div>
+<div className="berita-layout">
 
-        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=60"/>
-      
-      </div>
-    </div>
+{/* KIRI */}
+{beritaFilter[0] && (
+<div className="berita-kiri">
+<div className="berita-card horizontal">
+<Link to={`/berita/${beritaFilter[0].id}`}>
+<img src={beritaFilter[0].gambar}/>
+<div className="berita-text">
+<p>{beritaFilter[0].tanggal}</p>
+<h3>{beritaFilter[0].judul}</h3>
+</div>
+</Link>
+</div>
+</div>
+)}
 
-    {/* KANAN */}
+{/* KANAN */}
 <div className="berita-kanan">
-
-  {/* ATAS */}
-  <div className="berita-card vertical">
-    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=60" />
-
-    <div className="berita-text">
-      <p className="tanggal">25 FEBRUARI 2026</p>
-      <h3>Optimalkan Pengelolaan Data dan Pemodelan Cuaca...</h3>
-      <a href="#">Baca Selengkapnya →</a>
-    </div>
-  </div>
-
-  {/* BAWAH */}
-  <div className="berita-card vertical">
-    <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=800&q=60" />
-
-    <div className="berita-text">
-      <p className="tanggal">26 FEBRUARI 2026</p>
-      <h3>Peningkatan Sistem Informasi Cuaca Nasional...</h3>
-      <a href="#">Baca Selengkapnya →</a>
-    </div>
-  </div>
+{beritaFilter.slice(1,3).map(item=>(
+<div key={item.id} className="berita-card vertical">
+<Link to={`/berita/${item.id}`}>
+<img src={item.gambar}/>
+<div className="berita-text">
+<p>{item.tanggal}</p>
+<h3>{item.judul}</h3>
+</div>
+</Link>
+</div>
+))}
+</div>
 
 </div>
 </div>
-</div>
-</div>
 
-
+</div>
 );
 
 }
