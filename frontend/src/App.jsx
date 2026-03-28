@@ -12,6 +12,10 @@ import Cuaca from "./pages/Cuaca";
 import KualitasUdara from "./pages/KualitasUdara";
 import DetailPeringatan from "./pages/DetailPeringatan";
 import Berita from "./pages/BeritaDetail";
+import Maritim from "./pages/Maritim";
+import Bandara from "./pages/Bandara";
+import Sektoral from "./pages/Sektoral";
+import BandaraDetail from "./pages/BandaraDetail";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
         <Route path="/Udara" element={<KualitasUdara />} />
         <Route path="/detail/:id" element={<DetailPeringatan />} />
         <Route path="/berita/:id" element={<Berita />} />
+        <Route path="/maritim" element={<Maritim/>} />
+        <Route path="/bandara" element={<Bandara/>} />
+        <Route path="/sektoral" element={<Sektoral/>} />
+        <Route path="/bandara-detail/:id" element={<BandaraDetail/>} />
       </Routes>
 
       <Footer/>

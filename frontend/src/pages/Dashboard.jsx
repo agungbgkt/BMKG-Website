@@ -62,11 +62,39 @@ const dataBerita = [
     gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
   },
   {
+    id: "1",
+    judul: "Dukung Kelancaran Mudik Lebaran 2026...",
+    tanggal: "25 FEBRUARI 2026",
+    kategori: "Utama",
+    gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
+  },
+  {
+    id: "1",
+    judul: "Dukung Kelancaran Mudik Lebaran 2026...",
+    tanggal: "25 FEBRUARI 2026",
+    kategori: "Utama",
+    gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
+  },
+  {
     id: "2",
     judul: "Optimalkan Pengelolaan Data dan Pemodelan Cuaca...",
     tanggal: "25 FEBRUARI 2026",
     kategori: "Kegiatan",
     gambar: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"
+  },
+  {
+    id: "3",
+    judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
+    tanggal: "26 FEBRUARI 2026",
+    kategori: "Daerah",
+    gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
+  },
+  {
+    id: "3",
+    judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
+    tanggal: "26 FEBRUARI 2026",
+    kategori: "Daerah",
+    gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
   },
   {
     id: "3",
@@ -476,20 +504,20 @@ Lihat Selengkapnya →
 
   <div className="akses-container">
 
-    <div className="akses-card">
+    <Link to="/maritim" className="akses-card">
       <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"/>
       <h3>Cuaca Maritim</h3>
-    </div>
+    </Link>
 
-    <div className="akses-card">
+    <Link to="/bandara" className="akses-card">
       <img src="https://images.unsplash.com/photo-1493238792000-8113da705763"/>
       <h3>Cuaca Bandara</h3>
-    </div>
+    </Link>
 
-    <div className="akses-card">
+    <Link to="/sektoral" className="akses-card">
       <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"/>
       <h3>Cuaca Sektoral</h3>
-    </div>
+    </Link>
 
   </div>
 
