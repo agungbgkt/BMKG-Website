@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+Use Illuminate\Support\Facades\File;
 
 class ProvinceSeeder extends Seeder
 {
@@ -20,5 +22,6 @@ class ProvinceSeeder extends Seeder
 
         // insert ke tabel provinces
         DB::table('provinces')->insert($data);
+        
     }
 }

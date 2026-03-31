@@ -5,16 +5,60 @@ import { FaWind, FaTint, FaCompressArrowsAlt, FaEye } from "react-icons/fa";
 function Wilayah() {
   const [kota, setKota] = useState("Banyuwangi");
 
+  // untuk search
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+
+  // untuk call api
+  const searchLocation = async (value) => {
+    setQuery(value);
+    
+    if (value.length < 2){
+      setResults([]);
+      return;
+    } try {
+    const res = await fetch(`/api/location/search?q=${value}`);
+    const data = await res.json();
+    setResults(data);
+    } catch (error){
+      console.error("Error Search Location:", error);
+    };
+  };
+
   return (
     <div className="wilayah-page">
 
       {/* FILTER */}
-      <div className="wilayah-filter">
-        <select onChange={(e) => setKota(e.target.value)}>
+      <div className="wilayah-filterr" style={{position: "relative", maxWidth: "400px"}}>
+        {/* <select onChange={(e) => setKota(e.target.value)}>
           <option>Banyuwangi</option>
           <option>Surabaya</option>
           <option>Jakarta</option>
-        </select>
+        </select> */}
+        <input 
+          type="text"
+          placeholder="Cari lokasi..."
+          value={query}
+          onChange={(e) => searchLocation(e.target.value)}
+          style={{width: "80%", padding: "10px", borderRadius: "8px", border: "0.5px solid #ccc"}} />
+        {results.length > 0 && (
+          <div
+            style={{position: "absolute", background: "#fff", border: "0.5px solid #ddd", width: "80%", marginTop: "5px", borderRadius: "8px", zIndex: 10}}>
+              {results.map((loc, i) => (
+                <div
+                  key={i}
+                  style={{padding: "10px", cursor: "pointer", borderBottom: "0.5px solid #eee"}}
+                  onClick={() =>{
+                    setKota(loc.regency);
+                    setQuery(`${loc.village}, ${loc.regency}`);
+                    setResults([]);
+                  }}>
+                    <strong>{loc.village}</strong><br/>
+                    <small>{loc.district}, {loc.regency}, {loc.province}</small>
+                  </div>
+              ))}
+          </div>
+        )}
       </div>
 
       {/* HERO */}

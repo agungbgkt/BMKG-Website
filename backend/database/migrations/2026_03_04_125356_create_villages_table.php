@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('districtId')->constrained('districts')->onDelete('cascade');
             $table->string('name');
-            $table->string('adm4')->unique();
+            $table->string('adm4')->nullable();
             $table->timestamps();
         });
     }
