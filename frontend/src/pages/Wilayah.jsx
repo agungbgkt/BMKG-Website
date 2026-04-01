@@ -8,6 +8,7 @@ function Wilayah() {
   // untuk search
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // untuk call api
   const searchLocation = async (value) => {
@@ -15,13 +16,17 @@ function Wilayah() {
     
     if (value.length < 2){
       setResults([]);
+      setLoading(false);
       return;
     } try {
-    const res = await fetch(`/api/location/search?q=${value}`);
+      setLoading(true);
+    const res = await fetch(`http://localhost:8000/api/location/search?q=${encodeURIComponent(value)}`);
     const data = await res.json();
     setResults(data);
     } catch (error){
       console.error("Error Search Location:", error);
+    } finally {
+      setLoading(false);
     };
   };
 
@@ -40,21 +45,28 @@ function Wilayah() {
           placeholder="Cari lokasi..."
           value={query}
           onChange={(e) => searchLocation(e.target.value)}
+          onBlur={() => setTimeout(() => setResults([]), 200)}
           style={{width: "80%", padding: "10px", borderRadius: "8px", border: "0.5px solid #ccc"}} />
-        {results.length > 0 && (
+        
+        {loading && (
+          <div style={{ marginTop: "5px", fontSize: "14px", color: "#666" }}>
+            Mencari lokasi...
+          </div>
+        )}
+        {!loading && results.length > 0 && (
           <div
             style={{position: "absolute", background: "#fff", border: "0.5px solid #ddd", width: "80%", marginTop: "5px", borderRadius: "8px", zIndex: 10}}>
               {results.map((loc, i) => (
                 <div
-                  key={i}
+                  key={loc.id}
                   style={{padding: "10px", cursor: "pointer", borderBottom: "0.5px solid #eee"}}
                   onClick={() =>{
-                    setKota(loc.regency);
-                    setQuery(`${loc.village}, ${loc.regency}`);
+                    setKota(loc.title);
+                    setQuery(`${loc.title}, ${loc.subtitle}`);
                     setResults([]);
                   }}>
-                    <strong>{loc.village}</strong><br/>
-                    <small>{loc.district}, {loc.regency}, {loc.province}</small>
+                    <strong>{loc.title}</strong><br/>
+                    <small>{loc.subtitle}</small>
                   </div>
               ))}
           </div>
