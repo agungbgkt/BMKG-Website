@@ -11,7 +11,7 @@ function Lainnya() {
         {/* INFO TERKINI */}
         <div className="lainnya-card">
           <h3>Info Terkini</h3>
-          <Link to="/peringatan">Peringatan Cuaca</Link>
+          <Link to="/wilayah">Wilayah</Link>
           <Link to="/cuaca">Prakiraan Cuaca</Link>
           <Link to="/udara">Kualitas Udara</Link>
         </div>

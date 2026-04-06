@@ -22,7 +22,7 @@ function Wilayah() {
       setLoading(true);
     const res = await fetch(`http://solidarily-revisionary-cornelia.ngrok-free.dev/api/location/search?q=${encodeURIComponent(value)}`);
     const data = await res.json();
-    setResults(data);
+    setResults(Array.isArray(data) ? data : data.data || []);
     } catch (error){
       console.error("Error Search Location:", error);
     } finally {
