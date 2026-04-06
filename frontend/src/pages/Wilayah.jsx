@@ -20,7 +20,7 @@ function Wilayah() {
       return;
     } try {
       setLoading(true);
-    const res = await fetch(`http://localhost:8000/api/location/search?q=${encodeURIComponent(value)}`);
+    const res = await fetch(`http://localhost:8000/api/location/search?q=${encodeURLComponent(value)}`);
     const data = await res.json();
     setResults(data);
     } catch (error){
