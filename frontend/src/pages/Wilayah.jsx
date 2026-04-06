@@ -20,8 +20,10 @@ function Wilayah() {
       return;
     } try {
       setLoading(true);
-    const res = await fetch(`http://solidarily-revisionary-cornelia.ngrok-free.dev/api/location/search?q=${encodeURIComponent(value)}`);
+    const res = await fetch('/api/location/search?q=${encodeURIComponent(value)}');
     const data = await res.json();
+    console.log("HASIL API:", data);
+
     setResults(Array.isArray(data) ? data : data.data || []);
     } catch (error){
       console.error("Error Search Location:", error);
@@ -58,9 +60,9 @@ function Wilayah() {
             style={{position: "absolute", background: "#fff", border: "0.5px solid #ddd", width: "80%", marginTop: "5px", borderRadius: "8px", zIndex: 10}}>
               {results.map((loc, i) => (
                 <div
-                  key={loc.id}
+                  key={loc.id || i}
                   style={{padding: "10px", cursor: "pointer", borderBottom: "0.5px solid #eee"}}
-                  onClick={() =>{
+                  onMouseDown={() =>{
                     setKota(loc.title);
                     setQuery(`${loc.title}, ${loc.subtitle}`);
                     setResults([]);
