@@ -13,7 +13,7 @@ function Dashboard() {
 const sliderRef = useRef(null);
 const udaraRef = useRef(null);
 
-/* ================= STATE ================= */
+/* ================= STATE  */
 
 const [filter, setFilter] = useState("All");
 const [tanggal, setTanggal] = useState("Hari Ini");
