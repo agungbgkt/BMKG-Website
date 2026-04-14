@@ -510,18 +510,18 @@ Lihat Selengkapnya →
   <div className="akses-container">
 
     <Link to="/maritim" className="akses-card">
-     <img src={maritimImg}/>
-     <h3>Cuaca Maritim</h3>
+      <img src={maritimImg}/>
+      <h3>Cuaca Maritim</h3>
     </Link>
 
-   <Link to="/bandara" className="akses-card">
-     <img src={bandaraImg}/>
-     <h3>Cuaca Bandara</h3>
+    <Link to="/bandara" className="akses-card">
+      <img src={bandaraImg}/>
+      <h3>Cuaca Bandara</h3>
     </Link>
 
     <Link to="/sektoral" className="akses-card">
-     <img src={sektoralImg}/>
-     <h3>Cuaca Sektoral</h3>
+      <img src={sektoralImg}/>
+      <h3>Cuaca Sektoral</h3>
     </Link>
 
   </div>
