@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { FaWind, FaTint, FaCompressArrowsAlt, FaEye } from "react-icons/fa";
+import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { useMap } from "react-leaflet";
+import L from "leaflet";
 
+const API = import.meta.env.VITE_API_URL;
 
 function Wilayah() {
   const [kota, setKota] = useState("Banyuwangi");
@@ -9,6 +14,78 @@ function Wilayah() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // untuk map
+  const [geoData, setGeoData] = useState(null);
+  const [mapCenter, setMapCenter] = useState([-8.2, 114.3]);
+
+  // untuk cache cuaca
+  const [cuacaCache, setCuacaCache] = useState({});
+
+  // untuk load GeoJson
+  const loadMapData = async (wilayah) => {
+    try{
+      // example
+      const clean = wilayah.toLowerCase().split(",")[0].trim();
+
+      const res = await fetch(`/maps/${clean}.geojson`);
+      if(!res.ok) throw new Error("GeoJSON Tidak Ditemukan");
+
+      const data = await res.json();
+      setGeoData(data);
+      // Default sementara
+      setMapCenter([-8.2, 114.3]);
+
+    } catch (err) {
+      console.error("gagal load peta", err);
+      setGeoData(null);
+    }
+    console.log("GeoJSON:", data);
+  }
+
+  // untuk interaksi hover di map
+  const onEachFeature = (feature, layer) => {
+    const namaWilayah = feature.properties.name || feature.properties.tags?.name || "Wilayah";
+
+    layer.on({
+      mouseover: async(e) => {
+        // highlight
+        e.target.setStyle({
+          weight: 3, color: "#FF7800", fillOpacity: 0.5
+        });
+        // cek cache
+        if(cuacaCache[namaWilayah]){
+          layer.bindPopup(`
+            <strong>${namaWilayah}</strong><br/>
+            Suhu: ${data.suhu || "-"}°C<br/>
+            Cuaca: ${data.kondisi || "-"}
+            `).openPopup();
+            return;
+        }
+
+        try{
+          const res = await fetch(`${API}/api/cuaca?wilayah=${namaWilayah}`);
+          const data = await res.json();
+
+          // simpan ke cache
+          setCuacaCache(prev => ({...prev, [namaWilayah]: data}));
+
+          layer.bindPopup(`
+            <strong>${namaWilayah}</strong><br/>
+            Suhu: ${data.suhu || "-"}°C<br/>
+            Cuaca: ${data.kondisi || "-"}
+            `).openPopup();
+        } catch {
+          layer.bindPopup(`<strong>${namaWilayah}</strong><br/>Data tidak tersedia`).openPopup();
+        }
+      },
+      mouseout: (e) => {
+        e.target.setStyle({
+          weight: 2, color: "FFD700", fillOpacity: 0.2
+        });
+      }
+    });
+  };
 
   // untuk call api
   const searchLocation = async (value) => {
@@ -20,9 +97,15 @@ function Wilayah() {
       return;
     } try {
       setLoading(true);
-    const res = await fetch('/api/location/search?q=${encodeURIComponent(value)}');
+    const res = await fetch(`${API}/api/location/search?q=${encodeURIComponent(value)}`,{
+      headers: {
+        "ngrok-skip-browser-warning": "true"
+      }
+    });
+    
+    // console.log("Response status:", res.status);
     const data = await res.json();
-    console.log("HASIL API:", data);
+    console.log("RESPONSE:", data);
 
     setResults(Array.isArray(data) ? data : data.data || []);
     } catch (error){
@@ -48,6 +131,13 @@ function Wilayah() {
           value={query}
           onChange={(e) => searchLocation(e.target.value)}
           onBlur={() => setTimeout(() => setResults([]), 200)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter"){
+              const wilayahUtama = query.split(",")[0];
+              setKota(wilayahUtama);
+              loadMapData(wilayahUtama);
+            }
+          }}
           style={{width: "80%", padding: "10px", borderRadius: "8px", border: "0.5px solid #ccc"}} />
         
         {loading && (
@@ -120,13 +210,19 @@ function Wilayah() {
       </div>
 
       {/* MAP */}
-      <div className="map-box">
-        <iframe
-          src="https://www.google.com/maps?q=-8.2,114.3&z=10&output=embed"
-          width="100%"
-          height="300"
-          style={{ border: "none", borderRadius: "15px" }}
-        />
+      <div className="map-box" style={{ height: "400px", borderRadius: "15px", overflow: "hidden" }}>
+        <MapContainer center={[-8.2, 114.3]} zoom={10} style={{ height: "100%", width: "100%"}}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {geoData && (
+            <GeoJSON 
+            data={geoData} 
+            onEachFeature={onEachFeature}
+            style={{color: "FFD700", weight: 2, fillOpacity: 0.2}}
+            />
+          )}
+        </MapContainer>
       </div>
 
       {/* PERINGATAN */}
