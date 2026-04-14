@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaWind, FaTint, FaCompressArrowsAlt, FaEye } from "react-icons/fa";
 import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useMap } from "react-leaflet";
+// import { useMap } from "react-leaflet";
 import L from "leaflet";
 
 const API = import.meta.env.VITE_API_URL;
