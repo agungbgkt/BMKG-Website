@@ -2,6 +2,11 @@ import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import WeatherCard from "../component/dashboard/WeatherCard";
 import { FaSmile, FaMeh, FaFrown, FaAngry, FaSkull } from "react-icons/fa";
+import maritimImg from "../assets/maritim.jpg";
+import bandaraImg from "../assets/bandara.jpg";
+import sektoralImg from "../assets/sektoral.jpg";
+
+
 
 function Dashboard() {
 
@@ -505,18 +510,18 @@ Lihat Selengkapnya →
   <div className="akses-container">
 
     <Link to="/maritim" className="akses-card">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"/>
-      <h3>Cuaca Maritim</h3>
+     <img src={maritimImg}/>
+     <h3>Cuaca Maritim</h3>
     </Link>
 
-    <Link to="/bandara" className="akses-card">
-      <img src="https://images.unsplash.com/photo-1493238792000-8113da705763"/>
-      <h3>Cuaca Bandara</h3>
+   <Link to="/bandara" className="akses-card">
+     <img src={bandaraImg}/>
+     <h3>Cuaca Bandara</h3>
     </Link>
 
     <Link to="/sektoral" className="akses-card">
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"/>
-      <h3>Cuaca Sektoral</h3>
+     <img src={sektoralImg}/>
+     <h3>Cuaca Sektoral</h3>
     </Link>
 
   </div>

@@ -16,9 +16,23 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-background:#f4f6f8;
+  background: 
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+    url("./assets/body.jpg");
+  background-size: cover;
 }
 
+.cuaca-section{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+}
+
+.udara-section{
+  background:#f0f7ff;
+  padding:30px;
+  border-radius:20px;
+}
 /* =========================
    TOPBAR
 ========================= */
@@ -135,6 +149,9 @@ margin:auto;
 .cuaca-section{
 text-align:center;
 margin-bottom:30px;
+max-width:1200px;
+margin-left:auto;
+margin-right:auto;
 }
 
 .title{
@@ -245,6 +262,7 @@ text-decoration:underline;
 display:flex;
 align-items:center;
 gap:10px;
+justify-content:center;
 margin-top:20px;
 margin-bottom:40px;
 }
@@ -273,7 +291,8 @@ gap:25px;
 overflow-x:auto;
 scroll-behavior:smooth;
 padding-bottom:10px;
-flex:1;
+max-width:1000px;
+scroll-padding: 20px;
 }
 
 .weather-slider::-webkit-scrollbar{
@@ -469,8 +488,8 @@ border-top:1px solid #ddd;
 ========================= */
 
 .udara-section{
-margin-top:120px;
-padding:40px 60px;
+  margin-top:120px;
+  text-align:center;
 }
 
 .udara-title{
@@ -481,11 +500,17 @@ font-weight:700;
 }
 
 .udara-container{
-display:flex;
-gap:20px;
-overflow-x:auto;
-scroll-behavior:smooth;
-padding-bottom:10px;
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  padding-bottom:10px; 
+  justify-content:center;
+  max-width:1000px; 
+}
+
+.udara-section .slider-wrapper{
+  justify-content:center;
 }
 
 .udara-container::-webkit-scrollbar{
