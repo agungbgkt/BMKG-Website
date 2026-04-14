@@ -2,13 +2,18 @@ import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import WeatherCard from "../component/dashboard/WeatherCard";
 import { FaSmile, FaMeh, FaFrown, FaAngry, FaSkull } from "react-icons/fa";
+import maritimImg from "../assets/maritim.jpg";
+import bandaraImg from "../assets/bandara.jpg";
+import sektoralImg from "../assets/sektoral.jpg";
+
+
 
 function Dashboard() {
 
 const sliderRef = useRef(null);
 const udaraRef = useRef(null);
 
-/* ================= STATE ================= */
+/* ================= STATE  */
 
 const [filter, setFilter] = useState("All");
 const [tanggal, setTanggal] = useState("Hari Ini");
@@ -505,17 +510,17 @@ Lihat Selengkapnya →
   <div className="akses-container">
 
     <Link to="/maritim" className="akses-card">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"/>
+      <img src={maritimImg}/>
       <h3>Cuaca Maritim</h3>
     </Link>
 
     <Link to="/bandara" className="akses-card">
-      <img src="https://images.unsplash.com/photo-1493238792000-8113da705763"/>
+      <img src={bandaraImg}/>
       <h3>Cuaca Bandara</h3>
     </Link>
 
     <Link to="/sektoral" className="akses-card">
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"/>
+      <img src={sektoralImg}/>
       <h3>Cuaca Sektoral</h3>
     </Link>
 
