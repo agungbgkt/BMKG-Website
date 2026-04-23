@@ -1305,6 +1305,52 @@ border-radius:12px;
 color:#856404;
 }
 
+.map-legend {
+  width: 100%;               
+  max-width: 900px;         
+  margin: 15px auto;
+
+  padding: 10px 18px;       
+  border-radius: 10px;
+
+  background: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.map-legend h3 {
+  margin-bottom: 10px;
+  font-size: 16px; /* ⬅️ diperkecil */
+}
+
+.legend-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px; 
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px; 
+}
+
+.legend-color {
+  width: 12px;   
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* warna */
+.legend-color.kuning { background: #FFD700; }
+.legend-color.hitam { background: black; }
+.legend-color.putih { background: white; border: 1px solid #aaa; }
+.legend-color.oren { background: #FF7800; }
+
+
 /* =========================
    HALAMAN LAINNYA
 ========================= */

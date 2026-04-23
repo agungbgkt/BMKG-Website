@@ -320,7 +320,7 @@ function Wilayah() {
     return (
       <div className="wilayah-page">
         {/* FILTER */}
-        <div className="wilayah-filterr" style={{position: "relative", maxWidth: "400px"}}>
+        <div className="wilayah-filterr" style={{position: "relative", maxWidth: "400px", margin: "40px auto 30px"}}>
           <input 
             type="text"
             placeholder="Cari lokasi..."
@@ -336,11 +336,11 @@ function Wilayah() {
                 loadMapData(wilayahUtama, level, fullText);
               }
             }}
-            style={{width: "80%", padding: "10px", borderRadius: "8px", border: "0.5px solid #ccc"}} />
+            style={{width: "100%", padding: "10px", borderRadius: "8px", border: "0.5px solid #ccc"}} />
         
           {loading && (
             <div style={{ marginTop: "5px", fontSize: "14px", color: "#666" }}>
-              Mencari lokasi...
+              Mencari lokasi dicari...
             </div>
           )}
           {!loading && results.length > 0 && (
@@ -434,6 +434,35 @@ function Wilayah() {
           )}
         </MapContainer>
       </div>
+
+
+      {/* KETERANGAN */}
+
+      <div className="map-legend">
+        <h3>Keterangan Peta</h3>
+
+        <div className="legend-list">
+          <div className="legend-item">
+            <span className="legend-color kuning"></span>
+            <span>Wilayah dipilih</span>
+          </div>
+
+          <div className="legend-item">
+            <span className="legend-color oren"></span>
+            <span>Wilayah aktif</span>
+          </div>
+
+          <div className="legend-item">
+            <span className="legend-color hitam"></span>
+            <span>Batas Kecamatan</span>
+          </div>
+
+          <div className="legend-item">
+            <span className="legend-color putih"></span>
+            <span>Batas Desa</span>
+        </div>
+    </div>
+</div>
 
       {/* PERINGATAN */}
       <div className="peringatan-box">
