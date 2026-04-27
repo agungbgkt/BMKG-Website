@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function Peringatan() {
+
+  const [filter, setFilter] = useState("terkini");
 
   const dataBencana = [
     {
       id: 1,
       jenis: "Gempa Bumi",
       lokasi: "Nagan Raya, Aceh",
-      magnitude: "3.5",
+      magnitude: 3.5,
       kedalaman: "9 Km",
       waktu: "10 Feb 2026 • 20:13 WIB",
       status: "Dirasakan",
@@ -16,7 +19,7 @@ function Peringatan() {
       id: 2,
       jenis: "Gempa Bumi",
       lokasi: "Malang, Jawa Timur",
-      magnitude: "5.2",
+      magnitude: 5.2,
       kedalaman: "12 Km",
       waktu: "11 Feb 2026 • 14:20 WIB",
       status: "Tsunami",
@@ -25,12 +28,19 @@ function Peringatan() {
       id: 3,
       jenis: "Banjir",
       lokasi: "Jakarta",
-      magnitude: "-",
+      magnitude: 0,
       kedalaman: "-",
       waktu: "12 Feb 2026 • 08:00 WIB",
       status: "Waspada",
     }
   ];
+
+  // FILTER LOGIC
+  const filteredData = dataBencana.filter((item) => {
+    if (filter === "besar") return item.magnitude >= 5;
+    if (filter === "dirasakan") return item.status === "Dirasakan";
+    return true;
+  });
 
   return (
     <div className="peringatan-page">
@@ -39,15 +49,32 @@ function Peringatan() {
 
       {/* FILTER */}
       <div className="peringatan-filter">
-        <button className="aktif">Terkini</button>
-        <button>Magnitude ≥ 5.0</button>
-        <button>Dirasakan</button>
+        <button
+          className={filter === "terkini" ? "aktif" : ""}
+          onClick={() => setFilter("terkini")}
+        >
+          Terkini
+        </button>
+
+        <button
+          className={filter === "besar" ? "aktif" : ""}
+          onClick={() => setFilter("besar")}
+        >
+          Magnitude ≥ 5.0
+        </button>
+
+        <button
+          className={filter === "dirasakan" ? "aktif" : ""}
+          onClick={() => setFilter("dirasakan")}
+        >
+          Dirasakan
+        </button>
       </div>
 
       {/* LIST */}
       <div className="peringatan-list">
 
-        {dataBencana.map((item) => (
+        {filteredData.map((item) => (
           <div key={item.id} className="peringatan-card">
 
             <div className="peringatan-header">
