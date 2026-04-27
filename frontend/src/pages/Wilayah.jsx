@@ -28,7 +28,7 @@ function Wilayah() {
   // untuk simpan subtitle
   const [selectedSubtitle, setSelectedSubtitle] = useState("");
 
-  // untuk location
+  // mengubah data lokasi dari API
   const formatLocation = (loc) => {
     const title = loc.title || "";
     const subtitle = loc.subtitle || "";
@@ -56,9 +56,9 @@ function Wilayah() {
   // ambil data nama wilayah
   const getNamaWilayah = (props) => {
   return (
-    props.NAME_4 ||   // 🔥 INI YANG DIPAKAI DI DATA KAMU
+    props.NAME_4 ||   
     props.NAME_3 ||
-    props.NAME_4 ||
+    props.NAME_2 ||
     props.WADMKC ||
     props.name ||
     "");

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LocationController;
+
+use App\Http\Controllers\Api\WeatherController;
 // use Illuminate\Routing\Route;
 
 // Location API /Endpoint untuk data wilayah Indonesia
@@ -20,4 +22,9 @@ Route::prefix('location')->group(function(){
     // Default wilayah banyuwangi
     Route::get('/default', [LocationController::class, 'default']);
 });
+
+Route::prefix('weather')->group(function(){
+    Route::get('/fetch/{adm4}', [WeatherController::class, 'fetchByAdm4']);
+    Route::get('/{adm4}', [WeatherController::class, 'getByAdm4']);
+})
 ?>

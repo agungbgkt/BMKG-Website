@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('districtId')->constrained('districts')->onDelete('cascade');
             $table->string('name');
-            $table->string('adm4')->nullable();
+            $table->string('adm4')->nullable()->index();
             $table->timestamps();
         });
     }
