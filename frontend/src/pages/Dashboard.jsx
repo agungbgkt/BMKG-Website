@@ -1,581 +1,555 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import WeatherCard from "../component/dashboard/WeatherCard";
-import { FaSmile, FaMeh, FaFrown, FaAngry, FaSkull } from "react-icons/fa";
+
+import {
+  FaSmile,
+  FaMeh,
+  FaFrown,
+  FaAngry,
+  FaSkull
+} from "react-icons/fa";
+
+import {
+  WiDaySunny,
+  WiCloudy,
+  WiRain,
+  WiThunderstorm,
+  WiDaySunnyOvercast
+} from "react-icons/wi";
+
 import maritimImg from "../assets/maritim.jpg";
 import bandaraImg from "../assets/bandara.jpg";
 import sektoralImg from "../assets/sektoral.jpg";
 
-
-
 function Dashboard() {
+  const sliderRef = useRef(null);
+  const udaraRef = useRef(null);
 
-const sliderRef = useRef(null);
-const udaraRef = useRef(null);
+  /* ================= STATE ================= */
+  const [filter, setFilter] = useState("All");
+  const [tanggal, setTanggal] = useState("Hari Ini");
+  const [jam, setJam] = useState("12.00");
 
-/* ================= STATE  */
+  const [statusGempa] = useState("dirasakan");
+  const [statusBanjir] = useState("waspada");
+  const [kategori, setKategori] = useState("Utama");
 
-const [filter, setFilter] = useState("All");
-const [tanggal, setTanggal] = useState("Hari Ini");
-const [jam, setJam] = useState("12.00");
+  /* ================= SLIDER CUACA ================= */
+  const slideLeft = () => {
+    sliderRef.current.scrollBy({
+      left: -300,
+      behavior: "smooth"
+    });
+  };
 
-const [statusGempa] = useState("dirasakan");
-const [statusBanjir] = useState("waspada");
-const [kategori, setKategori] = useState("Utama");
+  const slideRight = () => {
+    sliderRef.current.scrollBy({
+      left: 300,
+      behavior: "smooth"
+    });
+  };
 
+  /* ================= SLIDER UDARA ================= */
+  const slideUdaraLeft = () => {
+    udaraRef.current.scrollBy({
+      left: -250,
+      behavior: "smooth"
+    });
+  };
 
-/* ================= SLIDER CUACA ================= */
+  const slideUdaraRight = () => {
+    udaraRef.current.scrollBy({
+      left: 250,
+      behavior: "smooth"
+    });
+  };
 
-const slideLeft = () => {
-sliderRef.current.scrollBy({
-left: -300,
-behavior: "smooth"
-});
-};
+  /* ================= DATA BERITA ================= */
+  const dataBerita = [
+    {
+      id: "1",
+      judul: "Dukung Kelancaran Mudik Lebaran 2026...",
+      tanggal: "25 FEBRUARI 2026",
+      kategori: "Utama",
+      gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
+    },
+    {
+      id: "1",
+      judul: "Dukung Kelancaran Mudik Lebaran 2026...",
+      tanggal: "25 FEBRUARI 2026",
+      kategori: "Utama",
+      gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
+    },
+    {
+      id: "1",
+      judul: "Dukung Kelancaran Mudik Lebaran 2026...",
+      tanggal: "25 FEBRUARI 2026",
+      kategori: "Utama",
+      gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
+    },
+    {
+      id: "2",
+      judul: "Optimalkan Pengelolaan Data dan Pemodelan Cuaca...",
+      tanggal: "25 FEBRUARI 2026",
+      kategori: "Kegiatan",
+      gambar: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"
+    },
+    {
+      id: "3",
+      judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
+      tanggal: "26 FEBRUARI 2026",
+      kategori: "Daerah",
+      gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
+    },
+    {
+      id: "3",
+      judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
+      tanggal: "26 FEBRUARI 2026",
+      kategori: "Daerah",
+      gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
+    },
+    {
+      id: "3",
+      judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
+      tanggal: "26 FEBRUARI 2026",
+      kategori: "Daerah",
+      gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
+    }
+  ];
 
-const slideRight = () => {
-sliderRef.current.scrollBy({
-left: 300,
-behavior: "smooth"
-});
-};
-
-/* ================= SLIDER UDARA ================= */
-
-const slideUdaraLeft = () => {
-udaraRef.current.scrollBy({
-left: -250,
-behavior: "smooth"
-});
-};
-
-const slideUdaraRight = () => {
-udaraRef.current.scrollBy({
-left: 250,
-behavior: "smooth"
-});
-};
-
-/* ================= DATA BERITA (BARU) ================= */
-
-const dataBerita = [
-  {
-    id: "1",
-    judul: "Dukung Kelancaran Mudik Lebaran 2026...",
-    tanggal: "25 FEBRUARI 2026",
-    kategori: "Utama",
-    gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
-  },
-  {
-    id: "1",
-    judul: "Dukung Kelancaran Mudik Lebaran 2026...",
-    tanggal: "25 FEBRUARI 2026",
-    kategori: "Utama",
-    gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
-  },
-  {
-    id: "1",
-    judul: "Dukung Kelancaran Mudik Lebaran 2026...",
-    tanggal: "25 FEBRUARI 2026",
-    kategori: "Utama",
-    gambar: "https://images.unsplash.com/photo-1504711434969-e33886168f5c"
-  },
-  {
-    id: "2",
-    judul: "Optimalkan Pengelolaan Data dan Pemodelan Cuaca...",
-    tanggal: "25 FEBRUARI 2026",
-    kategori: "Kegiatan",
-    gambar: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"
-  },
-  {
-    id: "3",
-    judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
-    tanggal: "26 FEBRUARI 2026",
-    kategori: "Daerah",
-    gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
-  },
-  {
-    id: "3",
-    judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
-    tanggal: "26 FEBRUARI 2026",
-    kategori: "Daerah",
-    gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
-  },
-  {
-    id: "3",
-    judul: "Peningkatan Sistem Informasi Cuaca Nasional...",
-    tanggal: "26 FEBRUARI 2026",
-    kategori: "Daerah",
-    gambar: "https://images.unsplash.com/photo-1495020689067-958852a7765e"
-  }
-];
-
-const beritaFilter = dataBerita.filter(
-  (item) => item.kategori === kategori
-);
-
-/* ================= DATA CUACA ================= */
-
-const dataCuaca = [
-
-{ kota:"Banyuwangi", tanggal:"Hari Ini", jam:"12.00", suhu:30, kondisi:"Cerah" },
-{ kota:"Jember", tanggal:"Hari Ini", jam:"12.00", suhu:31, kondisi:"Berawan" },
-{ kota:"Malang", tanggal:"Hari Ini", jam:"12.00", suhu:28, kondisi:"Hujan" },
-{ kota:"Surabaya", tanggal:"Hari Ini", jam:"12.00", suhu:32, kondisi:"Cerah" },
-
-{ kota:"Banyuwangi", tanggal:"Besok", jam:"12.00", suhu:29, kondisi:"Berawan" },
-{ kota:"Jember", tanggal:"Besok", jam:"12.00", suhu:30, kondisi:"Cerah" },
-{ kota:"Malang", tanggal:"Besok", jam:"12.00", suhu:25, kondisi:"Hujan" },
-
-{ kota:"Banyuwangi", tanggal:"Lusa", jam:"12.00", suhu:27, kondisi:"Hujan" },
-{ kota:"Surabaya", tanggal:"Lusa", jam:"12.00", suhu:33, kondisi:"Petir" },
-
-];
-
-/* ================= DATA KUALITAS UDARA ================= */
-
-const dataUdara = [
-{ kota:"Banyuwangi", jam:"12.00 WIB", nilai:"05.6", status:"Baik", class:"baik", icon:<FaSmile/> },
-{ kota:"Jember", jam:"12.00 WIB", nilai:"45.7", status:"Sedang", class:"sedang", icon:<FaMeh/> },
-{ kota:"Malang", jam:"12.00 WIB", nilai:"74.8", status:"Tidak Sehat", class:"tidak-sehat", icon:<FaFrown/> },
-{ kota:"Surabaya", jam:"12.00 WIB", nilai:"222.1", status:"Sangat Tidak Sehat", class:"sangat-tidak-sehat", icon:<FaAngry/> },
-{ kota:"Jakarta", jam:"12.00 WIB", nilai:"255.9", status:"Berbahaya", class:"berbahaya", icon:<FaSkull/> },
-];
-
-/* ================= FILTER CUACA ================= */
-
-const filteredData = dataCuaca.filter((item) => {
-  return (
-    item.tanggal === tanggal &&
-    item.jam === jam &&
-    (filter === "All" || item.kondisi === filter)
+  const beritaFilter = dataBerita.filter(
+    (item) => item.kategori === kategori
   );
-});
 
-return(
-  
+  /* ================= DATA CUACA ================= */
+  const dataCuaca = [
+    { desa: "Kebalenan", kecamatan: "Banyuwangi", tanggal: "Hari Ini", jam: "12.00", suhu: 30, kondisi: "Cerah" },
+    { desa: "Sobo", kecamatan: "Banyuwangi", tanggal: "Hari Ini", jam: "12.00", suhu: 31, kondisi: "Berawan" },
+    { desa: "Pakis", kecamatan: "Glagah", tanggal: "Hari Ini", jam: "12.00", suhu: 28, kondisi: "Hujan" },
+    { desa: "Tamansari", kecamatan: "Licin", tanggal: "Hari Ini", jam: "12.00", suhu: 32, kondisi: "Cerah" },
+
+    { desa: "Kebalenan", kecamatan: "Banyuwangi", tanggal: "Besok", jam: "12.00", suhu: 29, kondisi: "Berawan" },
+    { desa: "Sobo", kecamatan: "Banyuwangi", tanggal: "Besok", jam: "12.00", suhu: 30, kondisi: "Cerah" },
+    { desa: "Pakis", kecamatan: "Glagah", tanggal: "Besok", jam: "12.00", suhu: 25, kondisi: "Hujan" },
+
+    { desa: "Tamansari", kecamatan: "Licin", tanggal: "Lusa", jam: "12.00", suhu: 27, kondisi: "Hujan" },
+    { desa: "Kampung Mandar", kecamatan: "Banyuwangi", tanggal: "Lusa", jam: "12.00", suhu: 33, kondisi: "Petir" }
+  ];
+
+  /* ================= DATA UDARA ================= */
+  const dataUdara = [
+    { kota: "Banyuwangi", jam: "12.00 WIB", nilai: "05.6", status: "Baik", class: "baik", icon: <FaSmile /> },
+    { kota: "Jember", jam: "12.00 WIB", nilai: "45.7", status: "Sedang", class: "sedang", icon: <FaMeh /> },
+    { kota: "Malang", jam: "12.00 WIB", nilai: "74.8", status: "Tidak Sehat", class: "tidak-sehat", icon: <FaFrown /> },
+    { kota: "Surabaya", jam: "12.00 WIB", nilai: "222.1", status: "Sangat Tidak Sehat", class: "sangat-tidak-sehat", icon: <FaAngry /> },
+    { kota: "Jakarta", jam: "12.00 WIB", nilai: "255.9", status: "Berbahaya", class: "berbahaya", icon: <FaSkull /> }
+  ];
+
+  /* ================= FILTER CUACA ================= */
+  const filteredData = dataCuaca.filter((item) => {
+    return (
+      item.tanggal === tanggal &&
+      item.jam === jam &&
+      (filter === "All" || item.kondisi === filter)
+    );
+  });
+
+  return (
+  <div className="dashboard">
+
+    {/* ================= CUACA ================= */}
+    <div className="cuaca-section">
+
+      <h1 className="title">CUACA</h1>
+
+      <div className="icon-group">
+
+        <div
+          className={`icon-box ${filter === "All" ? "active" : ""}`}
+          onClick={() => setFilter("All")}
+        >
+          <WiDaySunnyOvercast className="text-2xl" />
+        </div>
+
+        <div
+          className={`icon-box ${filter === "Cerah" ? "active" : ""}`}
+          onClick={() => setFilter("Cerah")}
+        >
+          <WiDaySunny className="text-yellow-400 text-2xl" />
+        </div>
+
+        <div
+          className={`icon-box ${filter === "Berawan" ? "active" : ""}`}
+          onClick={() => setFilter("Berawan")}
+        >
+          <WiCloudy className="text-gray-400 text-2xl" />
+        </div>
+
+        <div
+          className={`icon-box ${filter === "Hujan" ? "active" : ""}`}
+          onClick={() => setFilter("Hujan")}
+        >
+          <WiRain className="text-blue-400 text-2xl" />
+        </div>
+
+        <div
+          className={`icon-box ${filter === "Petir" ? "active" : ""}`}
+          onClick={() => setFilter("Petir")}
+        >
+          <WiThunderstorm className="text-purple-500 text-2xl" />
+        </div>
+
+      </div>
+
+      {/* ================= TANGGAL ================= */}
+      <div className="tanggal-cuaca">
+
+        <button
+          className={tanggal === "Hari Ini" ? "aktif" : ""}
+          onClick={() => setTanggal("Hari Ini")}
+        >
+          Hari Ini
+        </button>
+
+        <button
+          className={tanggal === "Besok" ? "aktif" : ""}
+          onClick={() => setTanggal("Besok")}
+        >
+          Besok
+        </button>
+
+        <button
+          className={tanggal === "Lusa" ? "aktif" : ""}
+          onClick={() => setTanggal("Lusa")}
+        >
+          Lusa
+        </button>
+
+      </div>
+
+      {/* ================= JAM ================= */}
+      <div className="jam-cuaca">
+        <select value={jam} onChange={(e) => setJam(e.target.value)}>
+          <option value="09.00">09.00</option>
+          <option value="12.00">12.00</option>
+          <option value="15.00">15.00</option>
+          <option value="18.00">18.00</option>
+        </select>
+      </div>
+
+      <Link to="/cuaca" className="lihat">
+        Lihat Selengkapnya →
+      </Link>
+
+    </div>
+
+    {/* ================= SLIDER CUACA ================= */}
+    <div className="slider-wrapper">
+
+      <button className="slider-btn" onClick={slideLeft}>
+        ❮
+      </button>
 
-<div className="dashboard">
+      <div className="weather-slider" ref={sliderRef}>
+        {filteredData.map((item, index) => (
+          <WeatherCard
+            key={index}
+            desa={item.desa}
+            kecamatan={item.kecamatan}
+            jam={item.jam}
+            suhu={item.suhu}
+            kondisi={item.kondisi}
+          />
+        ))}
+      </div>
+
+      <button className="slider-btn" onClick={slideRight}>
+        ❯
+      </button>
+
+    </div>
 
-{/* ================= CUACA ================= */}
+    {/* ================= INFORMASI KEBENCANAAN ================= */}
+    <div className="bencana-section">
+
+      <h2 className="bencana-title">
+        Informasi Kebencanaan Terkini
+      </h2>
+
+      {/* ================= GEMPA ================= */}
+      <div className="bencana-card">
+
+        <div className="bencana-left">
+          <iframe
+            title="peta-gempa"
+            src="https://www.google.com/maps?q=-1.96,138.95&z=6&output=embed"
+            width="260"
+            height="200"
+            style={{ border: "none", borderRadius: "10px" }}
+          />
+        </div>
 
-<div className="cuaca-section">
+        <div className="bencana-right">
 
-<h1 className="title">CUACA</h1>
+          <h3>Gempa Bumi</h3>
 
-<div className="icon-group">
+          <p className="tanggal">
+            24 FEBRUARI 2026, 14:46:50 WIB
+          </p>
 
- <div
-className={`icon-box ${filter==="All"?"active":""}`}
-onClick={()=>setFilter("All")}
->
-🌍
-</div>   
+          <div className="badge-group">
 
-<div
-className={`icon-box ${filter==="Cerah"?"active":""}`}
-onClick={()=>setFilter("Cerah")}
->
-☀️
-</div>
+            <span className={`badge ${statusGempa === "dirasakan" ? "orange" : "gray"}`}>
+              Gempa Dirasakan
+            </span>
 
-<div
-className={`icon-box ${filter==="Berawan"?"active":""}`}
-onClick={()=>setFilter("Berawan")}
->
-☁️
-</div>
+            <span className={`badge ${statusGempa === "tsunami" ? "red" : "gray"}`}>
+              Berpotensi Tsunami
+            </span>
+
+          </div>
 
-<div
-className={`icon-box ${filter==="Hujan"?"active":""}`}
-onClick={()=>setFilter("Hujan")}
->
-🌧️
-</div>
+          <p className="lokasi">
+            Pusat gempa berada di darat 23 km tenggara Sami
+          </p>
 
-<div
-className={`icon-box ${filter==="Petir"?"active":""}`}
-onClick={()=>setFilter("Petir")}
->
-⛈️
-</div>
+          <div className="gempa-detail">
 
-</div>
+            <div className="detail-box">
+              <p>Magnitude</p>
+              <h4>5.7</h4>
+            </div>
 
-{/* ================= TANGGAL ================= */}
+            <div className="detail-box">
+              <p>Kedalaman</p>
+              <h4>10 Km</h4>
+            </div>
 
-<div className="tanggal-cuaca">
+            <div className="detail-box">
+              <p>Koordinat</p>
+              <h4>1.96 LS - 138.95 BT</h4>
+            </div>
 
-<button
-className={tanggal==="Hari Ini" ? "aktif" : ""}
-onClick={()=>setTanggal("Hari Ini")}
->
-Hari Ini
-</button>
+          </div>
 
-<button
-className={tanggal==="Besok" ? "aktif" : ""}
-onClick={()=>setTanggal("Besok")}
->
-Besok
-</button>
+          <p className="saran">
+            <b>Saran BMKG:</b> Hati-hati terhadap gempa bumi susulan yang mungkin terjadi.
+          </p>
 
-<button
-className={tanggal==="Lusa" ? "aktif" : ""}
-onClick={()=>setTanggal("Lusa")}
->
-Lusa
-</button>
+          <Link to="/detail/1" className="lihat">
+            Lihat Selengkapnya →
+          </Link>
 
-</div>
+        </div>
 
-{/* ================= JAM ================= */}
+      </div>
 
-<div className="jam-cuaca">
+      <hr className="bencana-divider" />
 
-<select
-value={jam}
-onChange={(e)=>setJam(e.target.value)}
->
+      {/* ================= BANJIR ================= */}
+      <div className="bencana-card">
 
-<option value="09.00">09.00</option>
-<option value="12.00">12.00</option>
-<option value="15.00">15.00</option>
-<option value="18.00">18.00</option>
+        <div className="bencana-left">
+          <iframe
+            title="peta-banjir"
+            src="https://www.google.com/maps?q=-6.2088,106.8456&z=10&output=embed"
+            width="260"
+            height="200"
+            style={{ border: "none", borderRadius: "10px" }}
+          />
+        </div>
+                <div className="bencana-right">
 
-</select>
+          <h3>Potensi Banjir</h3>
 
-</div>
+          <p className="tanggal">
+            24 FEBRUARI 2026, 14:46:50 WIB
+          </p>
 
-<Link to="/cuaca" className="lihat">
-Lihat Selengkapnya →
-</Link>
+          <div className="badge-group">
 
-</div>
+            <span className={`badge ${statusBanjir === "rendah" ? "green" : "gray"}`}>
+              Rendah
+            </span>
 
-{/* ================= SLIDER CUACA ================= */}
+            <span className={`badge ${statusBanjir === "waspada" ? "yellow" : "gray"}`}>
+              Waspada
+            </span>
 
-<div className="slider-wrapper">
+            <span className={`badge ${statusBanjir === "siaga" ? "orange" : "gray"}`}>
+              Siaga
+            </span>
 
-<button className="slider-btn" onClick={slideLeft}>
-❮
-</button>
+            <span className={`badge ${statusBanjir === "bahaya" ? "red" : "gray"}`}>
+              Bahaya
+            </span>
 
-<div className="weather-slider" ref={sliderRef}>
+          </div>
 
-{filteredData.map((item,index)=>(
+          <p className="lokasi">
+            Potensi banjir berada di sungai Ciliwung Jakarta
+          </p>
 
-<WeatherCard
-key={index}
-kota={item.kota}
-jam={item.jam}
-suhu={item.suhu}
-kondisi={item.kondisi}
-/>
+          <div className="gempa-detail">
 
-))}
+            <div className="detail-box">
+              <p>Curah Hujan</p>
+              <h4>77 mm/jam</h4>
+            </div>
 
-</div>
+            <div className="detail-box">
+              <p>Ketinggian Air</p>
+              <h4>120 cm</h4>
+            </div>
 
-<button className="slider-btn" onClick={slideRight}>
-❯
-</button>
+            <div className="detail-box">
+              <p>Status</p>
+              <h4>Waspada</h4>
+            </div>
 
-</div>
+          </div>
 
+          <p className="saran">
+            <b>Saran BMKG:</b> Waspada terhadap potensi banjir di wilayah sekitar.
+          </p>
 
-{/* ================= INFORMASI KEBENCANAAN ================= */}
+          <Link to="/detail/2" className="lihat">
+            Lihat Selengkapnya →
+          </Link>
 
-<div className="bencana-section">
+        </div>
+      </div>
 
-<h2 className="bencana-title">
-Informasi Kebencanaan Terkini
-</h2>
+    </div>
 
-{/* ================= GEMPA ================= */}
+    {/* ================= KUALITAS UDARA ================= */}
+    <div className="udara-section">
 
-<div className="bencana-card">
+      <h2 className="udara-title">
+        Informasi Kualitas Udara Terkini
+      </h2>
 
-<div className="bencana-left">
+      <div className="slider-wrapper">
 
-<iframe
-title="peta-gempa"
-src="https://www.google.com/maps?q=-1.96,138.95&z=6&output=embed"
-width="260"
-height="200"
-style={{border:"none",borderRadius:"10px"}}
-/>
+        <button className="slider-btn" onClick={slideUdaraLeft}>
+          ❮
+        </button>
 
-</div>
+        <div className="udara-container" ref={udaraRef}>
 
-<div className="bencana-right">
-
-<h3>Gempa Bumi</h3>
-
-<p className="tanggal">
-24 FEBRUARI 2026, 14:46:50 WIB
-</p>
-
-<div className="badge-group">
-
-<span className={`badge ${statusGempa==="dirasakan" ? "orange" : "gray"}`}>
-Gempa Dirasakan
-</span>
-
-<span className={`badge ${statusGempa==="tsunami" ? "red" : "gray"}`}>
-Berpotensi Tsunami
-</span>
-
-</div>
-
-
-<p className="lokasi">
-Pusat gempa berada di darat 23 km tenggara Sami
-</p>
-
-<div className="gempa-detail">
-
-<div className="detail-box">
-<p>Magnitude</p>
-<h4>5.7</h4>
-</div>
-
-<div className="detail-box">
-<p>Kedalaman</p>
-<h4>10 Km</h4>
-</div>
-
-<div className="detail-box">
-<p>Koordinat</p>
-<h4>1.96 LS - 138.95 BT</h4>
-</div>
-
-</div>
-
-<p className="saran">
-<b>Saran BMKG:</b> Hati-hati terhadap gempa bumi susulan yang mungkin terjadi.
-</p>
-
-<Link to="/detail/1" className="lihat">
-Lihat Selengkapnya →
-</Link>
-
-</div>
-
-</div>
-
-
-<hr className="bencana-divider" />
-
-
-{/* ================= BANJIR ================= */}
-
-<div className="bencana-card">
-
-<div className="bencana-left">
-
-<iframe
-title="peta-banjir"
-src="https://www.google.com/maps?q=-6.2088,106.8456&z=10&output=embed"
-width="260"
-height="200"
-style={{border:"none",borderRadius:"10px"}}
-/>
-
-</div>
-
-<div className="bencana-right">
-
-<h3>Potensi Banjir</h3>
-
-<p className="tanggal">
-24 FEBRUARI 2026, 14:46:50 WIB
-</p>
-
-<div className="badge-group">
-
-<span className={`badge ${statusBanjir==="rendah" ? "green" : "gray"}`}>
-Rendah
-</span>
-
-<span className={`badge ${statusBanjir==="waspada" ? "yellow" : "gray"}`}>
-Waspada
-</span>
-
-<span className={`badge ${statusBanjir==="siaga" ? "orange" : "gray"}`}>
-Siaga
-</span>
-
-<span className={`badge ${statusBanjir==="bahaya" ? "red" : "gray"}`}>
-Bahaya
-</span>
-
-</div>
-
-
-<p className="lokasi">
-Potensi banjir berada di sungai Ciliwung Jakarta
-</p>
-
-<div className="gempa-detail">
-
-<div className="detail-box">
-<p>Curah Hujan</p>
-<h4>77 mm/jam</h4>
-</div>
-
-<div className="detail-box">
-<p>Ketinggian Air</p>
-<h4>120 cm</h4>
-</div>
-
-<div className="detail-box">
-<p>Status</p>
-<h4>Waspada</h4>
-</div>
-
-</div>
-
-<p className="saran">
-<b>Saran BMKG:</b> Waspada terhadap potensi banjir di wilayah sekitar.
-</p>
-
-<Link to="/detail/2" className="lihat">
-Lihat Selengkapnya →
-</Link>
-
-</div>
-
-</div>
-
-</div>
-
-
-{/* ================= KUALITAS UDARA ================= */}
-
-<div className="udara-section">
-
-<h2 className="udara-title">
-Informasi Kualitas Udara Terkini
-</h2>
-
-<div className="slider-wrapper">
-
-<button className="slider-btn" onClick={slideUdaraLeft}>
-❮
-</button>
-
-<div className="udara-container" ref={udaraRef}>
-
-{dataUdara.map((item,index)=>(
-
-<div key={index} className={`udara-card ${item.class}`}>
-
-<div className="udara-icon">
-{item.icon}
-</div>
-
-<h3>{item.kota}</h3>
-<p>{item.jam}</p>
-<h2>{item.nilai}</h2>
-<span>{item.status}</span>
-
-</div>
-
-))}
-
-</div>
-
-<button className="slider-btn" onClick={slideUdaraRight}>
-❯
-</button>
-
-</div>
-
-<Link to="/udara" className="lihat">
-Lihat Selengkapnya →
-</Link>
-
-</div>
-
-
-{/* ================= AKSES INFORMASI LAINNYA================= */}
-
-<div className="akses-section">
-
-  <h2 className="akses-title">
-    Akses Informasi Lainnya
-  </h2>
-
-  <div className="akses-container">
-
-    <Link to="/maritim" className="akses-card">
-      <img src={maritimImg}/>
-      <h3>Cuaca Maritim</h3>
-    </Link>
-
-    <Link to="/bandara" className="akses-card">
-      <img src={bandaraImg}/>
-      <h3>Cuaca Bandara</h3>
-    </Link>
-
-    <Link to="/sektoral" className="akses-card">
-      <img src={sektoralImg}/>
-      <h3>Cuaca Sektoral</h3>
-    </Link>
+          {dataUdara.map((item, index) => (
+            <div key={index} className={`udara-card ${item.class}`}>
+
+              <div className="udara-icon">
+                {item.icon}
+              </div>
+
+              <h3>{item.kota}</h3>
+              <p>{item.jam}</p>
+              <h2>{item.nilai}</h2>
+              <span>{item.status}</span>
+
+            </div>
+          ))}
+
+        </div>
+
+        <button className="slider-btn" onClick={slideUdaraRight}>
+          ❯
+        </button>
+
+      </div>
+
+      <Link to="/udara" className="lihat">
+        Lihat Selengkapnya →
+      </Link>
+
+    </div>
+
+    {/* ================= AKSES INFORMASI ================= */}
+    <div className="akses-section">
+
+      <h2 className="akses-title">
+        Akses Informasi Lainnya
+      </h2>
+
+      <div className="akses-container">
+
+        <Link to="/maritim" className="akses-card">
+          <img src={maritimImg} alt="Maritim" />
+          <h3>Cuaca Maritim</h3>
+        </Link>
+
+        <Link to="/bandara" className="akses-card">
+          <img src={bandaraImg} alt="Bandara" />
+          <h3>Cuaca Bandara</h3>
+        </Link>
+
+        <Link to="/sektoral" className="akses-card">
+          <img src={sektoralImg} alt="Sektoral" />
+          <h3>Cuaca Sektoral</h3>
+        </Link>
+
+      </div>
+
+    </div>
+
+    {/* ================= BERITA ================= */}
+    <div className="berita-section">
+
+      <p className="berita-label">BERITA</p>
+      <h2 className="berita-title">Berita Terkini</h2>
+
+      <div className="tanggal-cuaca">
+        <button className={kategori === "Utama" ? "aktif" : ""} onClick={() => setKategori("Utama")}>
+          Berita Utama
+        </button>
+        <button className={kategori === "Kegiatan" ? "aktif" : ""} onClick={() => setKategori("Kegiatan")}>
+          Berita Kegiatan
+        </button>
+        <button className={kategori === "Daerah" ? "aktif" : ""} onClick={() => setKategori("Daerah")}>
+          Berita Daerah
+        </button>
+      </div>
+
+      <div className="berita-layout">
+
+        {/* KIRI */}
+        {beritaFilter[0] && (
+          <div className="berita-kiri">
+            <div className="berita-card horizontal">
+              <Link to={`/berita/${beritaFilter[0].id}`}>
+                <img src={beritaFilter[0].gambar} alt="berita" />
+                <div className="berita-text">
+                  <p>{beritaFilter[0].tanggal}</p>
+                  <h3>{beritaFilter[0].judul}</h3>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* KANAN */}
+        <div className="berita-kanan">
+          {beritaFilter.slice(1, 3).map((item) => (
+            <div key={item.id} className="berita-card vertical">
+              <Link to={`/berita/${item.id}`}>
+                <img src={item.gambar} alt="berita" />
+                <div className="berita-text">
+                  <p>{item.tanggal}</p>
+                  <h3>{item.judul}</h3>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
-
-</div>
-
-{/* ================= BERITA ================= */}
-<div className="berita-section">
-
-<p className="berita-label">BERITA</p>
-<h2 className="berita-title">Berita Terkini</h2>
-
-<div className="tanggal-cuaca">
-<button className={kategori==="Utama"?"aktif":""} onClick={()=>setKategori("Utama")}>Berita Utama</button>
-<button className={kategori==="Kegiatan"?"aktif":""} onClick={()=>setKategori("Kegiatan")}>Berita Kegiatan</button>
-<button className={kategori==="Daerah"?"aktif":""} onClick={()=>setKategori("Daerah")}>Berita Daerah</button>
-</div>
-
-<div className="berita-layout">
-
-{/* KIRI */}
-{beritaFilter[0] && (
-<div className="berita-kiri">
-<div className="berita-card horizontal">
-<Link to={`/berita/${beritaFilter[0].id}`}>
-<img src={beritaFilter[0].gambar}/>
-<div className="berita-text">
-<p>{beritaFilter[0].tanggal}</p>
-<h3>{beritaFilter[0].judul}</h3>
-</div>
-</Link>
-</div>
-</div>
-)}
-
-{/* KANAN */}
-<div className="berita-kanan">
-{beritaFilter.slice(1,3).map(item=>(
-<div key={item.id} className="berita-card vertical">
-<Link to={`/berita/${item.id}`}>
-<img src={item.gambar}/>
-<div className="berita-text">
-<p>{item.tanggal}</p>
-<h3>{item.judul}</h3>
-</div>
-</Link>
-</div>
-))}
-</div>
-
-</div>
-</div>
-
-</div>
 );
 
 }
