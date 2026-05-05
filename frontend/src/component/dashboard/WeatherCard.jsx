@@ -1,17 +1,24 @@
-function WeatherCard({ kota, jam, suhu, kondisi }) {
+import {
+  WiDaySunny,
+  WiCloudy,
+  WiRain,
+  WiThunderstorm
+} from "react-icons/wi";
+
+function WeatherCard({ desa, kecamatan, jam, suhu, kondisi }) {
 
   const getIcon = () => {
     switch (kondisi) {
       case "Cerah":
-        return "☀️";
+        return <WiDaySunny className="text-yellow-400 text-5xl" />;
       case "Berawan":
-        return "☁️";
+        return <WiCloudy className="text-gray-400 text-5xl" />;
       case "Hujan":
-        return "🌧️";
+        return <WiRain className="text-blue-400 text-5xl" />;
       case "Petir":
-        return "⛈️";
+        return <WiThunderstorm className="text-purple-500 text-5xl" />;
       default:
-        return "☀️";
+        return <WiDaySunny className="text-yellow-400 text-5xl" />;
     }
   };
 
@@ -19,7 +26,8 @@ function WeatherCard({ kota, jam, suhu, kondisi }) {
     <div className="weather-card">
 
       <div className="card-header">
-        <h3>{kota}</h3>
+        <h3>{desa}</h3>
+        <p className="kecamatan">{kecamatan}</p>
         <p>{jam}</p>
       </div>
 
