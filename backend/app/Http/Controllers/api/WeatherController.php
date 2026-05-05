@@ -1,64 +1,75 @@
 <?php
-    namespace App\Http\Controllers\api;
-    
-    use App\Http\Controllers\Controller;
-    use Illuminate\Support\Facades\Http;
-    use App\Models\Weather;
-    use Carbon\Carbon;
-class WeatherController extends Controller{
-    public function fetchByAdm4($adm4){
-        $url = "https://api.bmkg.go.id/present-weather?adm4={$adm4}";
-        $response = Http::retry(3, 1000)->timeout(10)->withHeaders([
-            'X-API-KEY' => config('services.bmkg.key'),
-            'Accept' => 'application/json',
-            ])->get($url);
-        if(!$response->successful()){
-            return response()->json(['error' => 'Gagal ambil data BMKG'], 500);
-        }
 
-        $json = $response->json();
-        if(!isset($json['data'])){
-            return response()->json(['error' => 'Data Kosong'], 404);
-        }
+namespace App\Http\Controllers\api;
 
-        $lokasi = $json['data']['lokasi'];
-        $cuaca = $json['data']['cuaca'];
+use App\Http\Controllers\Controller;
+use App\Services\WeatherService;
+use App\Jobs\UpdateWeatherJob;
+use Illuminate\Support\Facades\Log;
 
-        $waktu = Carbon::parse($cuaca['local_datetime']);
+class WeatherController extends Controller
+{
+    protected $service;
 
-        $weather = Weather::updateOrCreate(
-            [
-                'adm4' => $lokasi['adm4'],
-                'waktu'=> $waktu
-            ],
-            [
-                'provinsi' => $lokasi['provinsi'],
-                'kotkab' => $lokasi['kotkab'],
-                'kecamatan' => $lokasi['kecamatan'],
-                'desa' => $lokasi['desa'],
-                'latitude' => $lokasi['lat'],
-                'longitude' => $lokasi['lon'],
-                'suhu' => $cuaca['t'],
-                'kelembaban' => $cuaca['hu'],
-                'cuaca' => $cuaca['weather_desc'],
-                'kecepatan_angin' => $cuaca['ws'],
-            ]
-        );
-        return response()->json([
-            'status' => $response->status(),
-            'body' => $response->json()
-        ]);
+    public function __construct(WeatherService $service)
+    {
+        $this->service = $service;
     }
 
-    // ambil data dari database
-    public function getByAdm4($adm4){
-        $data = Weather::where('adm4', $adm4)
-            ->orderBy('waktu', 'desc')
-            ->first();
-        if(!$data){
-            return response()->json(['error' => 'Data tidak ditemukan'], 404);
+    public function getWeather($adm4)
+    {
+    try {
+        Log::info("REQUEST ADM4:", ['adm4' => $adm4]);
+
+        $weather = $this->service->getLatestFromDB($adm4);
+
+        if (!$weather || now()->diffInMinutes($weather->waktu) > 10) {
+            $weather = $this->service->fetchAndStore($adm4);
+            // return response()->json($weather);
         }
-        return response()->json($data);
+        if(!$weather){
+            return response()->json(['error' => 'Data tidak tersedia'], 404);
+        }
+
+        return response()->json([
+            'desa' => $weather->desa,
+            'suhu' => $weather->suhu,
+            'cuaca' => $weather->cuaca,
+            'kelembapan' => $weather->kelembaban,
+
+            'angin' => $weather->kecepatan_angin,
+            'arah_angin' => $weather->arah_angin,
+            'arah_derajat' => $weather->arah_angin_derajat,
+
+            'visibilitas' => $weather->visibilitas,
+            'visibilitas_text' => $weather->visibilitas_text,
+
+            'cloud_cover' => $weather->cloud_cover,
+        ]);
+
+        // $this->service->fetchAndStore($adm4);
+
+        // $newWeather = $this->service->getLatestFromDB($adm4);
+
+        // if (!$newWeather) {
+        //     return response()->json([
+        //         'error' => 'Data tidak ditemukan'
+        //     ], 404);
+        // }
+
+        // return response()->json($newWeather);
+
+    } catch (\Exception $e) {
+        Log::error("ERROR WEATHER:", [
+            'message' => $e->getMessage(),
+            'line' => $e->getLine(),
+            'file' => $e->getFile()
+        ]);
+
+        return response()->json([
+            'error' => 'Server error',
+            'message' => $e->getMessage()
+        ], 500);
     }
 }
-?>
+}

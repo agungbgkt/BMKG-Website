@@ -16,6 +16,8 @@ import Maritim from "./pages/Maritim";
 import Bandara from "./pages/Bandara";
 import Sektoral from "./pages/Sektoral";
 import BandaraDetail from "./pages/BandaraDetail";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
         <Route path="/bandara" element={<Bandara/>} />
         <Route path="/sektoral" element={<Sektoral/>} />
         <Route path="/bandara-detail/:id" element={<BandaraDetail/>} />
+        <Route path="/login" element={<Login></Login>} />
+        <Route path="/register" element={<Register></Register>} />
       </Routes>
 
       <Footer/>

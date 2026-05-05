@@ -25,6 +25,6 @@ Route::prefix('location')->group(function(){
 
 Route::prefix('weather')->group(function(){
     Route::get('/fetch/{adm4}', [WeatherController::class, 'fetchByAdm4']);
-    Route::get('/{adm4}', [WeatherController::class, 'getByAdm4']);
+    Route::get('/{adm4}', [WeatherController::class, 'getWeather']);
 })
 ?>
