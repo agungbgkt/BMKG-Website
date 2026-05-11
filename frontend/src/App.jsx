@@ -18,6 +18,9 @@ import Sektoral from "./pages/Sektoral";
 import BandaraDetail from "./pages/BandaraDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Banjir from "./pages/Banjir";
+import Gempa from "./pages/Gempa";
+import CuacaEkstrem from "./pages/CuacaEkstrem";
 
 function App() {
   return (
@@ -41,6 +44,11 @@ function App() {
         <Route path="/bandara-detail/:id" element={<BandaraDetail/>} />
         <Route path="/login" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />
+
+        {/* EDUKASI */}
+        <Route path="/banjir" element={<Banjir />} />
+        <Route path="/gempa" element={<Gempa />} />
+        <Route path="/cuaca-ekstrem" element={<CuacaEkstrem />} />
       </Routes>
 
       <Footer/>

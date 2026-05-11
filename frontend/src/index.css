@@ -1,12 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-
-
-/* 
-   GLOBAL
- */
+/* GLOBAL*/
 
 *{
 margin:0;

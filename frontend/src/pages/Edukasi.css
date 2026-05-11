@@ -1,0 +1,654 @@
+/* =========================
+   HALAMAN GEMPA
+========================= */
+
+.gempa-page{
+  padding:60px 20px;
+  background:#f5f7fb;
+  min-height:100vh;
+}
+
+.gempa-wrapper{
+  max-width:1300px;
+  margin:auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.gempa-header{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:40px;
+  align-items:center;
+  margin-bottom:50px;
+}
+
+.gempa-header-left{
+  background:white;
+  padding:40px;
+  border-radius:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.gempa-label{
+  color:#2f80ed;
+  font-weight:700;
+  letter-spacing:2px;
+  margin-bottom:15px;
+  font-size:13px;
+}
+
+.gempa-title{
+  font-size:48px;
+  line-height:1.2;
+  margin-bottom:20px;
+  color:#111;
+}
+
+.gempa-subtitle{
+  font-size:17px;
+  color:#555;
+  line-height:1.8;
+}
+
+.gempa-header-right img{
+  width:100%;
+  height:420px;
+  object-fit:cover;
+  border-radius:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   LAYOUT MODEL KORAN
+========================= */
+
+.gempa-news-layout{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:35px;
+}
+
+/* =========================
+   KOLOM KIRI
+========================= */
+
+.gempa-column-left{
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+}
+
+.gempa-news-card{
+  background:white;
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.gempa-news-card img{
+  width:100%;
+  height:350px;
+  object-fit:cover;
+}
+
+.gempa-news-content{
+  padding:30px;
+}
+
+.gempa-news-content h3{
+  font-size:30px;
+  margin-bottom:18px;
+  color:#111;
+  line-height:1.3;
+}
+
+.gempa-news-content p{
+  color:#555;
+  line-height:1.9;
+  margin-bottom:15px;
+  font-size:16px;
+}
+
+/* =========================
+   BOX INFORMASI
+========================= */
+
+.gempa-info-box{
+  background:white;
+  padding:35px;
+  border-radius:22px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.gempa-info-box h3{
+  font-size:28px;
+  margin-bottom:20px;
+  color:#111;
+}
+
+.gempa-list{
+  padding-left:20px;
+}
+
+.gempa-list li{
+  margin-bottom:15px;
+  line-height:1.8;
+  color:#444;
+  font-size:16px;
+}
+
+/* =========================
+   KOLOM KANAN
+========================= */
+
+.gempa-column-right{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+/* CARD SAMPING */
+
+.gempa-side-card{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.gempa-side-card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.gempa-side-content{
+  padding:25px;
+}
+
+.gempa-side-content h4{
+  font-size:22px;
+  margin-bottom:12px;
+  color:#111;
+}
+
+.gempa-side-content p{
+  color:#555;
+  line-height:1.8;
+  font-size:15px;
+}
+
+/* HIGHLIGHT */
+
+.gempa-highlight{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.gempa-highlight h3{
+  font-size:26px;
+  margin-bottom:18px;
+  color:#111;
+}
+
+.gempa-highlight p{
+  color:#555;
+  line-height:1.9;
+  margin-bottom:15px;
+}
+
+/* WARNING */
+
+.gempa-warning-box{
+  background:#fff4e5;
+  border-left:6px solid #ff9800;
+  padding:25px;
+  border-radius:18px;
+}
+
+.gempa-warning-box span{
+  display:block;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#e65100;
+  font-size:18px;
+}
+
+.gempa-warning-box p{
+  color:#7a4b00;
+  line-height:1.8;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.gempa-footer{
+  margin-top:50px;
+  background:white;
+  padding:35px;
+  border-radius:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
+  flex-wrap:wrap;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.gempa-footer p{
+  flex:1;
+  color:#555;
+  line-height:1.8;
+  font-size:16px;
+}
+
+.gempa-btn{
+  padding:14px 30px;
+  border:none;
+  border-radius:14px;
+  background:#2f80ed;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:15px;
+}
+
+.gempa-btn:hover{
+  transform:translateY(-3px);
+  background:#1669d8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+
+  .gempa-header{
+    grid-template-columns:1fr;
+  }
+
+  .gempa-news-layout{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .gempa-title{
+    font-size:36px;
+  }
+
+  .gempa-news-content h3{
+    font-size:24px;
+  }
+
+  .gempa-info-box h3,
+  .gempa-highlight h3{
+    font-size:22px;
+  }
+
+  .gempa-footer{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+}
+
+/* =========================
+   HALAMAN BANJIR
+========================= */
+
+.banjir-page {
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, #eef7ff, #ffffff);
+    min-height: 100vh;
+}
+
+.banjir-wrapper {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+/* BORDER */
+.banjir-border {
+    border: 2px dashed #4a90e2;
+    border-radius: 18px;
+    padding: 45px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* TITLE */
+.banjir-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+/* DIVIDER */
+.banjir-divider {
+    width: 120px;
+    height: 3px;
+    background: #4a90e2;
+    border: none;
+    margin: 0 auto 40px;
+    border-radius: 10px;
+}
+
+/* 2 IMAGES */
+.banjir-two-images {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.banjir-two-images img {
+    width: 50%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 16px;
+    transition: 0.3s;
+}
+
+.banjir-two-images img:hover {
+    transform: scale(1.02);
+}
+
+/* ROW */
+.banjir-row {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+/* TEXT */
+.banjir-text {
+    flex: 1;
+}
+
+.banjir-text h3 {
+    font-size: 24px;
+    color: #2563eb;
+    margin-bottom: 20px;
+}
+
+/* LIST */
+.banjir-list {
+    padding-left: 22px;
+}
+
+.banjir-list li {
+    margin-bottom: 14px;
+    line-height: 1.8;
+    color: #374151;
+    font-size: 16px;
+}
+
+/* TEXT ONLY */
+.banjir-text-only {
+    margin-bottom: 35px;
+}
+
+.banjir-text-only p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #444;
+    text-align: justify;
+    margin-bottom: 18px;
+}
+
+/* BACK SECTION */
+.banjir-back-section {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* BACK TEXT */
+.banjir-back-text {
+    font-size: 16px;
+    color: #374151;
+}
+
+/* BUTTON */
+.banjir-back-btn {
+    padding: 12px 28px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.banjir-back-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .banjir-border {
+        padding: 25px;
+    }
+
+    .banjir-title {
+        font-size: 28px;
+    }
+
+    .banjir-two-images {
+        flex-direction: column;
+    }
+
+    .banjir-two-images img {
+        width: 100%;
+        height: 220px;
+    }
+
+    .banjir-row {
+        flex-direction: column;
+    }
+
+    .banjir-back-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .banjir-text-only p,
+    .banjir-list li {
+        font-size: 15px;
+    }
+} 
+
+/* =========================
+   HALAMAN CUACA EKSTREM
+========================= */
+
+.ekstrem-page {
+    padding: 60px 20px;
+    background: #f8fbf8;
+    min-height: 100vh;
+}
+
+.ekstrem-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* BORDER */
+.ekstrem-border {
+    border: 2px dashed #79AE6F;
+    border-radius: 18px;
+    padding: 40px;
+    background: white;
+}
+
+/* TITLE */
+.ekstrem-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #2d2d2d;
+    margin-bottom: 20px;
+}
+
+/* DIVIDER */
+.ekstrem-divider {
+    width: 120px;
+    height: 2px;
+    background: #79AE6F;
+    border: none;
+    margin: 0 auto 35px;
+}
+
+/* HERO IMAGE */
+.ekstrem-hero-image {
+    margin-bottom: 40px;
+}
+
+.ekstrem-hero-image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+/* GRID */
+.ekstrem-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* LEFT & RIGHT */
+.ekstrem-left,
+.ekstrem-right {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* BOX */
+.ekstrem-text-box {
+    background: #f7faf7;
+    padding: 25px;
+    border-radius: 16px;
+}
+
+.ekstrem-text-box h3 {
+    font-size: 22px;
+    color: #2E2E2E;
+    margin-bottom: 15px;
+}
+
+.ekstrem-text-box p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #444;
+    text-align: justify;
+    margin-bottom: 15px;
+}
+
+/* IMAGE */
+.ekstrem-small-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* LIST */
+.ekstrem-list {
+    padding-left: 22px;
+}
+
+.ekstrem-list li {
+    margin-bottom: 14px;
+    line-height: 1.8;
+    color: #444;
+    font-size: 16px;
+}
+
+/* BACK */
+.ekstrem-back-section {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.ekstrem-back-text {
+    font-size: 16px;
+    color: #333;
+}
+
+/* BUTTON */
+.ekstrem-back-btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    background: #79AE6F;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ekstrem-back-btn:hover {
+    background: #5f9655;
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .ekstrem-border {
+        padding: 25px;
+    }
+
+    .ekstrem-title {
+        font-size: 28px;
+    }
+
+    .ekstrem-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ekstrem-hero-image img {
+        height: 240px;
+    }
+
+    .ekstrem-small-image img {
+        height: 220px;
+    }
+
+    .ekstrem-back-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}
