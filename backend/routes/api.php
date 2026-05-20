@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\WeatherController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Api\SensorController;
+use App\Http\Controllers\Api\FloodSensorController;
 // use Illuminate\Routing\Route;
 
 // Location API /Endpoint untuk data wilayah Indonesia
@@ -30,16 +31,38 @@ Route::prefix('weather')->group(function(){
 });
 // Endpoint Api login/register
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+ Route::post('/logout', [LoginController::class, 'logout']);
+});
 Route::post('/register', [LoginController::class, 'register']);
 
 // endpoint untuk menerima data esp32
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/sensor/data', [SensorController::class, 'getData']);
-    Route::get('/sensor/latest', [SensorController::class, 'getLatest']);
-    Route::get('/sensor/hourly', [SensorController::class, 'getHourlyData']);
-    Route::get('/sensor/by-sensor/{sensorId}', [SensorController::class, 'getBySensor']);
-});
+// Route::middleware('auth:sanctum')->group(function () {
+//     Route::get('/sensor/data', [SensorController::class, 'getData']);
+//     Route::get('/sensor/latest', [SensorController::class, 'getLatest']);
+//     Route::get('/sensor/hourly', [SensorController::class, 'getHourlyData']);
+//     Route::get('/sensor/by-sensor/{sensorId}', [SensorController::class, 'getBySensor']);
+// // });
 
+// Route::post('/sensor/receive', [SensorController::class, 'receiveData']);
+// Route::get('/sensor/latest', [SensorController::class, 'getLatest']);
+// Route::get('/sensor/all', [SensorController::class, 'getData']);
+// endpoint sensor public
+Route::get('/sensor/data', [SensorController::class, 'getData']);
+Route::get('/sensor/latest', [SensorController::class, 'getLatest']);
+Route::get('/sensor/hourly', [SensorController::class, 'getHourlyData']);
+Route::get('/sensor/by-sensor/{sensorId}', [SensorController::class, 'getBySensor']);
 Route::post('/sensor/receive', [SensorController::class, 'receiveData']);
+
+// endpoint baru
+Route::prefix('flood-sensor')->group(function () {
+    // receive data dari ESP32
+    Route::post('/receive',[FloodSensorController::class, 'receive']);
+    // ambil semua data
+    Route::get('/data',[FloodSensorController::class, 'index']);
+    // data terbaru
+    Route::get('/latest',[FloodSensorController::class, 'latest']);
+    // filter per sensor
+    Route::get('/by-sensor/{sensorId}',[FloodSensorController::class, 'bySensor']);
+});
 ?>

@@ -39,9 +39,18 @@ function Login() {
 
       if (response.ok) {
         // Simpan data user
+        localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         alert("Login berhasil!");
-        navigate("/dashboard");
+        // navigate("/dashboard");
+        const adminEmails = ["petugas@bmkg.go.id", "kepala@bmkg.go.id"];
+        const isAdmin = adminEmails.includes(data.user.email);
+
+        if(isAdmin) {
+          window.location.href = "/admin/dashboard";
+        } else{
+           window.location.href = "/";
+        }
       } else {
         setError(data.message || "Login gagal");
       }

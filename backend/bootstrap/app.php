@@ -12,19 +12,26 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    // ->withMiddleware(function (Middleware $middleware): void {
+    //     // Konfigurasi untuk Sanctum
+    //     $middleware->api(prepend: [
+    //         EnsureFrontendRequestsAreStateful::class,
+    //     ]);
+
+    //     // cara lebih sederhana
+    //     // $middleware->statefulApi();
+
+    //     // // Jika perlu alias untuk middleware
+    //     // $middleware->alias([
+    //     //     // 'role' => \App\Http\Middleware\RoleMiddleware::class,
+    //     // ]);
+    // })
     ->withMiddleware(function (Middleware $middleware): void {
-        // Konfigurasi untuk Sanctum
-        $middleware->api(prepend: [
-            EnsureFrontendRequestsAreStateful::class,
-        ]);
 
-        // cara lebih sederhana
-        // $middleware->statefulApi();
+        $middleware->validateCsrfTokens(except: [
+        'api/sensor/*',
+    ]);
 
-        // // Jika perlu alias untuk middleware
-        // $middleware->alias([
-        //     // 'role' => \App\Http\Middleware\RoleMiddleware::class,
-        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Navbar from "./component/Navbar/Navbar";
 import Topbar from "./component/Topbar/Topbar";
@@ -18,6 +19,32 @@ import Sektoral from "./pages/Sektoral";
 import BandaraDetail from "./pages/BandaraDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import DashboardAdmin from "./pages/DashboardAdmin";
+
+
+
+// Komponen untuk redirect berdasarkan role
+function RootRedirect() {
+  const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const parsedUser = JSON.parse(userData);
+      const adminEmails = ["petugas@bmkg.go.id", "kepala@bmkg.go.id"];
+      
+      if (adminEmails.includes(parsedUser.email)) {
+        window.location.href = "/admin/dashboard";
+      } else {
+        window.location.href = "/dashboard";
+      }
+    } else {
+      window.location.href = "/login";
+    }
+  }, []);
+  
+  return <div>Loading...</div>;
+}
 
 function App() {
   return (
@@ -41,6 +68,7 @@ function App() {
         <Route path="/bandara-detail/:id" element={<BandaraDetail/>} />
         <Route path="/login" element={<Login></Login>} />
         <Route path="/register" element={<Register></Register>} />
+        <Route path="/admin/dashboard" element={<DashboardAdmin />} />
       </Routes>
 
       <Footer/>

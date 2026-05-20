@@ -1,156 +1,295 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaTachometerAlt, FaCloudSun, FaTemperatureHigh, FaTint, FaWind, FaMicrochip } from "react-icons/fa";
-import Navbar from "../components/Navbar";
+import {
+  FaTachometerAlt,
+  FaCloudSun,
+  FaTint,
+  FaWind,
+  FaMicrochip,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
+
+import "./DashboardAdmin.css";
 
 function DashboardAdmin() {
   const [user, setUser] = useState(null);
   const [sensorData, setSensorData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [summary, setSummary] = useState({
     totalSensors: 0,
-    activeSensors: 0,
-    averageTemp: 0,
-    averageHumidity: 0,
+    averageWater: 0,
+    averageRain: 0,
+    rainingCount: 0,
+    locationCount: 0,
   });
+
+  const [locations, setLocations] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
-    if (!userData) {
+    const token = localStorage.getItem("token");
+
+    if (!userData || !token) {
       navigate("/login");
       return;
     }
+
     const parsedUser = JSON.parse(userData);
-    setUser(parsedUser);
-    
-    // Cek apakah admin
-    if (parsedUser.email !== "admin@bmkg.go.id" && parsedUser.role !== "admin") {
+
+    const adminEmails = [
+      "petugas@bmkg.go.id",
+      "kepala@bmkg.go.id",
+    ];
+
+    if (!adminEmails.includes(parsedUser.email)) {
       navigate("/");
+      return;
     }
-    
-    fetchSensorData();
+
+    setUser(parsedUser);
+
+    fetchSensorData(token);
+
+    const interval = setInterval(() => {
+      fetchSensorData(token);
+    }, 5000);
+
+    return () => clearInterval(interval);
+
   }, [navigate]);
 
-  const fetchSensorData = async () => {
+  const fetchSensorData = async (token) => {
     setLoading(true);
+
     try {
-      // Panggil API untuk ambil data sensor
-      const response = await fetch("http://localhost:8000/api/sensor-data", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      
+      const response = await fetch(
+        "http://localhost:8000/api/flood-sensor/latest",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/login");
+        return;
+      }
+
       if (response.ok) {
-        const data = await response.json();
-        setSensorData(data.data || []);
-        
-        // Hitung summary
-        if (data.data && data.data.length > 0) {
-          const tempSum = data.data.reduce((sum, item) => sum + (item.temperature || 0), 0);
-          const humidSum = data.data.reduce((sum, item) => sum + (item.humidity || 0), 0);
-          
+        const result = await response.json();
+
+        const data =
+          result.latest_data ||
+          result.data ||
+          result;
+
+        const sensorArray = Array.isArray(data)
+          ? data
+          : [data];
+
+        setSensorData(sensorArray);
+
+        // =========================
+        // SUMMARY CALCULATION
+        // =========================
+        if (sensorArray.length > 0) {
+
+          const waterSum = sensorArray.reduce(
+            (sum, item) =>
+              sum + (parseFloat(item.float_state) || 0),
+            0
+          );
+
+          const rainSum = sensorArray.reduce(
+            (sum, item) =>
+              sum + (parseFloat(item.rain_analog) || 0),
+            0
+          );
+
+          const raining = sensorArray.filter(
+            (item) => item.is_raining === true
+          ).length;
+
+          const uniqueLocations = [
+            ...new Set(
+              sensorArray.map((item) => item.location)
+            ),
+          ].filter(Boolean);
+
+          setLocations(uniqueLocations);
+
           setSummary({
-            totalSensors: data.data.length,
-            activeSensors: data.data.filter(item => item.status === "active").length,
-            averageTemp: (tempSum / data.data.length).toFixed(1),
-            averageHumidity: (humidSum / data.data.length).toFixed(1),
+            totalSensors: sensorArray.length,
+            averageWater: (
+              waterSum / sensorArray.length
+            ).toFixed(1),
+            averageRain: (
+              rainSum / sensorArray.length
+            ).toFixed(1),
+            rainingCount: raining,
+            locationCount: uniqueLocations.length,
           });
         }
       }
     } catch (error) {
-      console.error("Error fetching sensor data:", error);
+      console.error("ERROR FETCH:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  if (!user) return <div>Loading...</div>;
+  if (!user) {
+    return (
+      <div className="loading-container">
+        Loading...
+      </div>
+    );
+  }
 
   return (
-    <>
-      <Navbar />
-      <div className="admin-dashboard">
-        <div className="dashboard-header">
-          <h1>
-            <FaTachometerAlt /> Dashboard Admin
-          </h1>
-          <p>Selamat datang, {user.name} | {user.email}</p>
-        </div>
+    <div className="admin-dashboard">
 
-        {/* Summary Cards */}
-        <div className="summary-cards">
-          <div className="card">
-            <FaMicrochip className="card-icon" />
-            <h3>{summary.totalSensors}</h3>
-            <p>Total Sensor</p>
-          </div>
-          <div className="card">
-            <FaCloudSun className="card-icon" />
-            <h3>{summary.activeSensors}</h3>
-            <p>Sensor Aktif</p>
-          </div>
-          <div className="card">
-            <FaTemperatureHigh className="card-icon" />
-            <h3>{summary.averageTemp}°C</h3>
-            <p>Suhu Rata-rata</p>
-          </div>
-          <div className="card">
-            <FaTint className="card-icon" />
-            <h3>{summary.averageHumidity}%</h3>
-            <p>Kelembaban Rata-rata</p>
-          </div>
-        </div>
+      {/* HEADER */}
+      <div className="dashboard-header">
+        <h1>
+          <FaTachometerAlt />
+          Dashboard Admin
+        </h1>
 
-        {/* Tabel Data Sensor */}
-        <div className="sensor-table-container">
-          <h2>Data Real-time dari Sensor</h2>
-          {loading ? (
-            <p>Loading data sensor...</p>
-          ) : (
-            <table className="sensor-table">
-              <thead>
-                <tr>
-                  <th>ID Sensor</th>
-                  <th>Lokasi</th>
-                  <th>Suhu (°C)</th>
-                  <th>Kelembaban (%)</th>
-                  <th>Kecepatan Angin (m/s)</th>
-                  <th>Status</th>
-                  <th>Waktu</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sensorData.length > 0 ? (
-                  sensorData.map((sensor) => (
-                    <tr key={sensor.id}>
-                      <td>{sensor.sensor_id || sensor.id}</td>
-                      <td>{sensor.location || "-"}</td>
-                      <td>{sensor.temperature || "-"}</td>
-                      <td>{sensor.humidity || "-"}</td>
-                      <td>{sensor.wind_speed || "-"}</td>
-                      <td>
-                        <span className={`status-badge ${sensor.status === "active" ? "active" : "inactive"}`}>
-                          {sensor.status || "active"}
-                        </span>
-                      </td>
-                      <td>{new Date(sensor.created_at).toLocaleString()}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="7" style={{ textAlign: "center" }}>
-                      Belum ada data sensor
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <p>
+          Selamat datang, {user.name} | {user.email}
+        </p>
       </div>
-    </>
+
+      {/* SUMMARY */}
+      <div className="summary-cards">
+
+        <div className="card">
+          <FaMicrochip className="card-icon" />
+          <h3>{summary.totalSensors}</h3>
+          <p>Total Pembacaan</p>
+        </div>
+
+        <div className="card">
+          <FaTint className="card-icon" />
+          <h3>{summary.averageWater} cm</h3>
+          <p>Rata-rata Ketinggian Air</p>
+        </div>
+
+        <div className="card">
+          <FaCloudSun className="card-icon" />
+          <h3>{summary.averageRain}</h3>
+          <p>Rata-rata Curah Hujan</p>
+        </div>
+
+        <div className="card">
+          <FaWind className="card-icon" />
+          <h3>{summary.rainingCount}</h3>
+          <p>Sensor Sedang Hujan</p>
+        </div>
+
+        {/* 🔥 LOCATION CARD */}
+        <div className="card">
+          <FaMapMarkerAlt className="card-icon" />
+          <h3>{summary.locationCount}</h3>
+          <p>Lokasi Aktif</p>
+        </div>
+
+      </div>
+
+      {/* LOCATION LIST */}
+      <div className="location-box">
+        <h3>Lokasi Sensor Aktif</h3>
+        <ul>
+          {locations.map((loc, i) => (
+            <li key={i}>{loc}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* TABLE */}
+      <div className="sensor-table-container">
+
+        <div className="table-header">
+          <h2>Data Real-time dari Sensor</h2>
+        </div>
+
+        {loading ? (
+          <div className="loading-data">
+            Loading data sensor...
+          </div>
+        ) : sensorData.length === 0 ? (
+          <div className="loading-data">
+            Belum ada data sensor
+          </div>
+        ) : (
+          <table className="sensor-table">
+
+            <thead>
+              <tr>
+                <th>ID Sensor</th>
+                <th>Ketinggian Air</th>
+                <th>Rain Analog</th>
+                <th>Rain Digital</th>
+                <th>Status Hujan</th>
+                <th>Cuaca</th>
+                <th>Lokasi</th>
+                <th>Waktu</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {sensorData.map((sensor, index) => (
+                <tr key={sensor.id || index}>
+
+                  <td>{sensor.sensor_id || "-"}</td>
+
+                  <td>
+                    {sensor.float_state !== null
+                      ? `${sensor.float_state} cm`
+                      : "NO DATA"}
+                  </td>
+
+                  <td>{sensor.rain_analog || 0}</td>
+
+                  <td>
+                    {sensor.rain_digital ? "HIGH" : "LOW"}
+                  </td>
+
+                  <td>{sensor.rain_status || "-"}</td>
+
+                  <td>
+                    {sensor.is_raining
+                      ? "🌧️ Hujan"
+                      : "☀️ Cerah"}
+                  </td>
+
+                  <td>
+                    {sensor.location ||
+                      "Lokasi tidak tersedia"}
+                  </td>
+
+                  <td>
+                    {new Date(
+                      sensor.reading_time
+                    ).toLocaleString()}
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        )}
+
+      </div>
+    </div>
   );
 }
 
