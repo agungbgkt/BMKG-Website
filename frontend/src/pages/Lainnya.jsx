@@ -27,10 +27,11 @@ function Lainnya() {
         {/* EDUKASI */}
         <div className="lainnya-card">
           <h3>Edukasi</h3>
-          <a href="#">Tentang Cuaca</a>
-          <a href="#">Mitigasi Bencana</a>
-          <a href="#">Iklim & Lingkungan</a>
+          <a href="/banjir"> Antisipasi Banjir</a>
+          <a href="/gempa"> Mitigasi Gempa Bumi</a>
+          <a href="/cuaca-ekstrem"> Cuaca Ekstrem </a>
         </div>
+        
 
         {/* LAYANAN */}
         <div className="lainnya-card">
