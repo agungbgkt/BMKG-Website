@@ -65,4 +65,11 @@ Route::prefix('flood-sensor')->group(function () {
     // filter per sensor
     Route::get('/by-sensor/{sensorId}',[FloodSensorController::class, 'bySensor']);
 });
+
+Route::get('/test-post', function () {
+    return response()->json([
+        'status' => 'ok',
+        'message' => 'server reachable'
+    ]);
+});
 ?>

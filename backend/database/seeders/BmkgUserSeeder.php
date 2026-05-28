@@ -11,7 +11,19 @@ class BmkgUserSeeder extends Seeder
 {
     public function run(): void
     {
-        // User 1
+        // ================= ADMIN =================
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@bmkg.go.id',
+            'password' => Hash::make('admin123'),
+            'nip' => '199001012020011001',
+            'unit_kerja' => 'Administrator',
+            'is_bmkg' => true,
+        ]);
+
+        // ================= PETUGAS =================
+
         User::create([
             'name' => 'Petugas BMKG',
             'email' => 'petugas@bmkg.go.id',
@@ -21,7 +33,8 @@ class BmkgUserSeeder extends Seeder
             'is_bmkg' => true,
         ]);
 
-        // User 2
+        // ================= KEPALA =================
+
         User::create([
             'name' => 'Kepala Stasiun',
             'email' => 'kepala@bmkg.go.id',

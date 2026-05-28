@@ -12,26 +12,32 @@ class FloodSensorController extends Controller
     // TERIMA DATA DARI ESP32
     // =========================
     public function receive(Request $request)
-    {
-        $data = FloodSensorData::create([
-            'sensor_id'     => $request->sensor_id,
-            'location'      => $request->location,
-            'float_state'   => $request->float_state,
-            'flood_status'  => $request->flood_status,
-            'rain_analog'   => $request->rain_analog,
-            'rain_digital'  => $request->rain_digital,
-            'rain_status'   => $request->rain_status,
-            'is_raining'    => $request->is_raining,
-            'status'        => $request->status ?? 'active',
-            'reading_time'  => $request->reading_time ?? now(),
-            'sensor_ip'     => $request->ip(),
-        ]);
+{
+    $request->validate([
+        'sensor_id' => 'required',
+        'float_state' => 'nullable|numeric',
+        'rain_analog' => 'nullable|numeric',
+    ]);
 
-        return response()->json([
-            'message' => 'Data received successfully',
-            'data' => $data
-        ]);
-    }
+    $data = FloodSensorData::create([
+        'sensor_id'     => $request->sensor_id,
+        'location'      => $request->location,
+        'float_state'   => $request->float_state,
+        'flood_status'  => $request->flood_status,
+        'rain_analog'   => $request->rain_analog,
+        'rain_digital'  => $request->rain_digital,
+        'rain_status'   => $request->rain_status,
+        'is_raining'    => $request->rain_digital == 1,
+        'status'        => 'active',
+        'reading_time'  => now(),
+        'sensor_ip'     => $request->ip(),
+    ]);
+
+    return response()->json([
+        'message' => 'Data received successfully',
+        'data' => $data
+    ]);
+}
 
     // =========================
     // AMBIL SEMUA DATA

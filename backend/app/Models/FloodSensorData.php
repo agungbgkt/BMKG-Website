@@ -13,16 +13,11 @@ class FloodSensorData extends Model
 
     protected $fillable = [
         'sensor_id',
-        'location',
         'float_state',
         'flood_status',
         'rain_analog',
         'rain_digital',
-        'rain_status',
-        'is_raining',
-        'status',
-        'reading_time',
-        'sensor_ip',
+        'rain_status'
     ];
 
     protected $casts = [
